@@ -9,6 +9,7 @@ export default class PageOne extends Component {
       	<Text style={{margin: 20}}>Welcome to Gruup Up!</Text>
       	<Text style={{margin: 20}} onPress={Actions.login}>Log In!</Text>
         <Text style={{margin: 20}} onPress={Actions.signup}>Sign Up!</Text>
+        <Text style={{margin: 20}} onPress={Actions.welcome}>Welcome</Text>
       </View>
     )
   }

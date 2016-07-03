@@ -14,6 +14,7 @@ import PageOne from './PageOne.js';
 // import PageTwo from './PageTwo.js';
 import SignUp from './SignUp.js'
 import LogIn from './LogIn.js'
+import LoggedIn from './LoggedIn.js'
 
 class FinalProject extends Component {
   render() {
@@ -24,6 +25,7 @@ class FinalProject extends Component {
           {/*<Scene key="pageTwo" component={PageTwo} title="PageTwo" />*/}
           <Scene key="login" direction="vertical" component={LogIn} title="Log In!" />
           <Scene key="signup" component={SignUp} title="Sign Up!" />
+          <Scene key="welcome" component={LoggedIn} title="Welcome!" />
         </Scene>
       </Router>
     )
