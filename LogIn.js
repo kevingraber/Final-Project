@@ -7,11 +7,19 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+var STORAGE_KEY = 'id_token';
+
 class LogIn extends Component {
+
+  // componentDidMount() {
+  //   this._fetchInfo()
+  // }
 
   constructor(props) {
     super(props);
@@ -21,18 +29,133 @@ class LogIn extends Component {
     };
   }
 
-  buttonClicked() {
-    fetch('http://10.0.3.2:3001', {
+  async _onValueChange(item, selectedValue) {
+    try {
+      await AsyncStorage.setItem(item, selectedValue);
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  decideWhatTheFuckToDo(response) {
+    console.warn(response.status)
+    if (response.status == 401) {
+      Alert.alert('Failure to authenticate', 'Your username/password was wrong')
+      return
+    } else if (response.status == 201) {
+      Alert.alert('Authentication Successful', "You got it right")
+      console.log(response)
+    }
+  }  
+
+  // login() {
+  //   fetch('http://10.0.3.2:3001/sessions/create', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       username: this.state.username,
+  //       password: this.state.password,
+  //     })
+  //   })
+  //   // .then(this.decideWhatTheFuckToDo)
+  //   // .then((response) => {
+  //   //   console.log(response)
+  //   //   response.json()
+  //   // })
+  //   .then((response) => response.json())
+  //   .then((responseData) => {
+  //     // console.log(responseData)
+  //     // console.log('lel')
+  //   //   Alert.alert('You JWT is:', responseData.id_token)
+  //   //   // this._onValueChange(STORAGE_KEY, responseData.id_token)
+  //     console.log(responseData)
+  //     if (responseData) {
+  //       console.log('logged in')
+  //     } else {
+  //       console.log('not logged in')
+  //     }
+  //   })
+  //   .done()
+  //   // .then(Actions.welcome())
+  // }
+
+    login() {
+    fetch('http://10.0.3.2:3001/sessions/create', {
       method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         username: this.state.username,
         password: this.state.password,
       })
-    });
-  }  
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+      // Alert.alert('You JWT is:', responseData.id_token)
+      // this._onValueChange(STORAGE_KEY, responseData.id_token)
+      AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
+      // console.log(responseData)
+      Actions.welcome()
+      // this.goToWelcome()
+    }).catch((error) => {
+        alert('Incorrect Login');
+    })
+    // .then(Actions.welcome())
+    .done()
+    // .then(Actions.welcome())
+  }
+
+  //   login() {
+  //   fetch('http://10.0.3.2:3001/sessions/create', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       username: this.state.username,
+  //       password: this.state.password,
+  //     })
+  //   })
+  //   .then((response) => response.json())
+  //   .then((responseData) => {
+  //     Alert.alert('You JWT is:', responseData.id_token)
+  //     this._onValueChange(STORAGE_KEY, responseData.id_token)
+  //     console.log(responseData)
+  //   })
+  //   .done()
+  //   // .then(Actions.welcome())
+  // }
+
+  // // login() {
+  // //   fetch('http://10.0.3.2:3001/sessions/create', {
+  // //     method: 'POST',
+  // //     headers: {
+  // //       'Accept': 'application/json',
+  // //       'Content-Type': 'application/json'
+  // //     },
+  // //     body: JSON.stringify({
+  // //       username: this.state.username,
+  // //       password: this.state.password,
+  // //     })
+  // //   })
+  // //   .then((response) => {
+  // //     console.log(response)
+  // //   })
+  // //   .then((responseData) => {
+  // //     console.log(responseData)
+  // //   })
+  // //   .done()
+
+  
 
   render() {
-    const goToWelcome = () => Actions.welcome(this.state)
+    const goToWelcome = () => Actions.welcome({username: this.state.username})
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -43,14 +166,14 @@ class LogIn extends Component {
           placeholder="Username"
           onChangeText={(username) => this.setState({username})}
           value={this.state.username}
-          />
+        />
         <TextInput 
           style={{width: 300}} 
           placeholder="Password"
           onChangeText={(password) => this.setState({password})}
           value={this.state.password}
         />
-        <TouchableNativeFeedback onPress={this.buttonClicked.bind(this)}>
+        <TouchableNativeFeedback onPress={this.login.bind(this)}>
           <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
             <Text>Log In!</Text>
           </View>
