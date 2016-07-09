@@ -15,6 +15,7 @@ import PageOne from './PageOne.js';
 import SignUp from './SignUp.js'
 import LogIn from './LogIn.js'
 import LoggedIn from './LoggedIn.js'
+import SearchResults from './SearchResults.js'
 
 class FinalProject extends Component {
   render() {
@@ -26,6 +27,7 @@ class FinalProject extends Component {
           <Scene key="login" direction="vertical" component={LogIn} title="Log In!" />
           <Scene key="signup" component={SignUp} title="Sign Up!" />
           <Scene key="welcome" component={LoggedIn} title="Welcome!" />
+          <Scene key="searchresults" component={SearchResults} title="Search Results!" />
         </Scene>
       </Router>
     )

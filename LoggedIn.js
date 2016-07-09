@@ -75,14 +75,14 @@ class LoggedIn extends Component {
         'Authorization': 'Bearer ' + this.state.user
       }
     })
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((responseData) => {
       // Alert.alert('You JWT is:', responseData.id_token)
       // this._onValueChange(STORAGE_KEY, responseData.id_token)
       // AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
       // console.log(responseData)
       // Actions.welcome()
-      Alert.alert(responseData)
+      Alert.alert("Friends:", responseData.friends[0])
     })
     // .then(Actions.welcome())
     .done()
@@ -103,26 +103,32 @@ class LoggedIn extends Component {
         </Text>
 
           <TouchableNativeFeedback onPress={this.alerttoken.bind(this)}>
-            <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
+            <View style={{width: 200, height: 50, backgroundColor: 'lightblue', margin: 5}}>
               <Text>Alert Token</Text>
             </View>
           </TouchableNativeFeedback>
 
           <TouchableNativeFeedback onPress={this.getprotected.bind(this)}>
-            <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
+            <View style={{width: 200, height: 50, backgroundColor: 'lightblue', margin: 5}}>
               <Text>Get Protected</Text>
             </View>
           </TouchableNativeFeedback>
 
           <TouchableNativeFeedback onPress={this.userroute.bind(this)}>
-            <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
+            <View style={{width: 200, height: 50, backgroundColor: 'lightblue', margin: 5}}>
               <Text>User Route</Text>
             </View>
           </TouchableNativeFeedback>
 
           <TouchableNativeFeedback onPress={this.logout.bind(this)}>
-            <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
+            <View style={{width: 200, height: 50, backgroundColor: 'lightblue', margin: 5}}>
               <Text>Log Out</Text>
+            </View>
+          </TouchableNativeFeedback>
+
+          <TouchableNativeFeedback onPress={Actions.searchresults}>
+            <View style={{width: 200, height: 50, backgroundColor: 'lightblue', margin: 5}}>
+              <Text>Search Results</Text>
             </View>
           </TouchableNativeFeedback>
 
