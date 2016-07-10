@@ -3,13 +3,14 @@ import React, {
   Image,
   StyleSheet,
   Text,
-  View
+  View,
+  MapView
 } from 'react-native';
 import RNGeocoder from 'react-native-geocoder';
-
+import moment from 'moment';
 import StyleVars from 'Social/StyleVars';
 
-let imageWidth = Dimensions.get('window').width - 20;
+let imageWidth = (Dimensions.get('window').width * 1/2) - 10;
 
 const styles = StyleSheet.create({
   postContainer: {
@@ -20,21 +21,38 @@ const styles = StyleSheet.create({
   },
 
   postPicture: {
-    flex: 1,
     width: imageWidth,
-    height: imageWidth * 2/3,
-    borderRadius: 10,
-    marginHorizontal: 10
+    height: 100
   },
 
-  userName: {
+  eventName: {
     fontSize: 16,
     fontWeight: "bold",
     fontFamily: StyleVars.Fonts.general,
     color: StyleVars.Colors.primary,
     marginHorizontal: 10,
     marginBottom: 5
+  },
+  lowerText: {
+    fontSize: 12,
+    fontFamily: StyleVars.Fonts.general,
+    color: StyleVars.Colors.primary,
+    marginHorizontal: 10,
+    marginVertical: 5
+  },
+  map: {
+    height: 100,
+    width: imageWidth
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  horizontal2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
+
 });
 
 export default class PostListItem extends React.Component {
@@ -54,17 +72,52 @@ export default class PostListItem extends React.Component {
   }
 
   render() {
-    let geolocation = this.state.geolocation ? <Text>{this.state.geolocation.locality}, {this.state.geolocation.country}</Text> : null;
+    var date = moment(this.props.post.date_time,moment.ISO_8601).format("MM-DD-YY");
+
+    var region ={
+      latitude: this.props.post.loc[0],
+      longitude:this.props.post.loc[1],
+      latitudeDelta: 0.009,
+      longitudeDelta: 0.027
+    };
+
+    var annotation = [{
+      longitude: this.props.post.loc[1],
+      latitude: this.props.post.loc[0],
+      title: 'You Are Green',
+      tintColor: MapView.PinColors.GREEN
+    }];
 
     return (
       <View style={styles.postContainer}>
-        <Text style={styles.userName}>{this.props.post.user}</Text>
-        <Image
-          source={{uri: this.props.post.picture, isStatic: true}}
-          style={styles.postPicture}
-          resizeMode="cover"
-        />
-        {geolocation}
+        <View style={styles.horizontal}>
+          <MapView
+              style={styles.map}
+              region={region}
+              showsUserLocation={false}
+              annotations={annotation}
+          />
+          <Image
+              source={{uri: this.props.post.image, isStatic: true}}
+              style={styles.postPicture}
+              resizeMode="cover"
+          />
+        </View>
+        <View style={styles.horizontal2}>
+          <Text style={styles.eventName}>
+            {this.props.post.name}
+          </Text>
+          <Text style={styles.lowerText} >
+            {date}
+          </Text>
+        </View>
+        <Text style={styles.lowerText}>
+          {this.props.post.location_name}
+        </Text>
+        <Text style={styles.lowerText}>
+          {this.props.post.description}
+        </Text>
+
       </View>
     );
   }
