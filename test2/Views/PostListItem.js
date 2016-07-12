@@ -83,9 +83,7 @@ export default class PostListItem extends React.Component {
 
     var annotation = [{
       longitude: this.props.post.loc[1],
-      latitude: this.props.post.loc[0],
-      title: 'You Are Green',
-      tintColor: MapView.PinColors.GREEN
+      latitude: this.props.post.loc[0]
     }];
 
     return (
@@ -96,6 +94,7 @@ export default class PostListItem extends React.Component {
               region={region}
               showsUserLocation={false}
               annotations={annotation}
+              scrollEnabled = {false}
           />
           <Image
               source={{uri: this.props.post.image, isStatic: true}}
