@@ -82,15 +82,17 @@ class LogIn extends Component {
   //   // .then(Actions.welcome())
   // }
 
+  // http://10.0.3.2:3001/sessions/create
+
     login() {
-    fetch('http://10.0.3.2:3001/sessions/create', {
+    fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: this.state.username,
+        email: this.state.username,
         password: this.state.password,
       })
     })
