@@ -7,33 +7,57 @@ import {
   Image,
   TextInput,
   ListView,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Alert
 } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Actions } from 'react-native-router-flux';
 
 import { Result } from './Result.js'
 
-var fakedata = require('./FakeData.js')
+// var fakedata = require('./FakeData.js')
 
 class SearchResults extends Component {
 
   // Initialize the hardcoded data
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
     this.state = {
-      // dataSource: ds.cloneWithRows([
-      //   'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin','John', 'Joel', 
-      //   'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin','John', 'Joel', 'James'
-      // ])
-      dataSource: ds.cloneWithRows(fakedata)
+      dataSource: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }),
+      refreshing: false,
+      loaded: false
     };
+  }
+
+  fetchData() {
+    var REQUEST_URL = 'http://10.0.3.2:3001/events';
+    
+    fetch(REQUEST_URL)
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData),
+            // loaded: true,
+          });
+        })
+        .done();
+  }
+
+  rowPressed(eventID) {
+    // Alert.alert(eventID)
+    Actions.eventpage({eventID: eventID})
+  }
+
+  componentDidMount() {
+    // this.stopPostListener = DataStore.listen(this.onListChange.bind(this));
+    // Actions.loadPosts();
+    this.fetchData();
   }
 
   renderRow(rowData, sectionID, rowID) {
     return (
 
-      <TouchableNativeFeedback style={styles.test}>
+      <TouchableNativeFeedback onPress={() => this.rowPressed(rowData.id)} style={styles.test}>
         <View>
           <View style={styles.rowContainer}>
             <Image style={styles.thumb} source={{ uri: rowData.url }} />
