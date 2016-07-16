@@ -7,8 +7,13 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Picker,
+  CameraRoll
 } from 'react-native';
+
+import BasicSwitch from './Switch.js'
+import DatePickerComponent from './DatePickerComponent.js'
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -26,7 +31,7 @@ class CreateEvent extends Component {
         description: this.state.description,
         category: this.state.category,
         address: this.state.address,
-        bio: this.state.bio,
+        location: this.state.location,
         age: this.state.age,
         homezip: this.state.homezip,
         workzip: this.state.workzip,
@@ -69,13 +74,32 @@ class CreateEvent extends Component {
 
         <TextInput 
           style={{width: 300}} 
+          placeholder="location"
+          onChangeText={(location) => this.setState({location})}
+          value={this.state.location} 
+        />
+        <Text>{this.state.location}</Text>
+
+        <TextInput 
+          style={{width: 300}} 
           placeholder="address"
           onChangeText={(address) => this.setState({address})}
           value={this.state.address} 
         />
         <Text>{this.state.address}</Text>
 
-        <TextInput 
+        <Text>Private?</Text>
+        <BasicSwitch />
+
+      {/*WILL BE DIFFERENT FOR IOS*/}
+        <Picker
+          selectedValue={this.state.language}
+          onValueChange={(lang) => this.setState({language: lang})}>
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+
+        {/*<TextInput 
           style={{width: 300}} 
           placeholder="Bio"
           onChangeText={(bio) => this.setState({bio})}
@@ -99,13 +123,15 @@ class CreateEvent extends Component {
         />
         <Text>{this.state.homezip}</Text>
 
+
+
         <TextInput 
           style={{width: 300}} 
           placeholder="Work Zip"
           onChangeText={(workzip) => this.setState({workzip})}
           value={this.state.workzip} 
         />
-        <Text>{this.state.workzip}</Text>
+        <Text>{this.state.workzip}</Text>*/}
 
         </ScrollView>
         <TouchableNativeFeedback onPress={this.buttonClicked.bind(this)} >
