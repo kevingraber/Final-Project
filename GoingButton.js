@@ -33,8 +33,8 @@ class GoingButton extends Component {
     if (!this.state.going) {
       return (
         <TouchableNativeFeedback onPress={this.handleClick.bind(this)}>
-          <View>
-            <Text>
+          <View style={styles.notGoing}>
+            <Text style={styles.centeredText}>
               Not Yet Going!
             </Text>
           </View>
@@ -44,8 +44,8 @@ class GoingButton extends Component {
 
     return (
       <TouchableNativeFeedback onPress={this.handleClick.bind(this)}>
-        <View>
-          <Text>
+        <View style={styles.Going}>
+          <Text style={styles.centeredText}>
             Going!
           </Text>
         </View>
@@ -56,10 +56,24 @@ class GoingButton extends Component {
 }
 
 const styles = StyleSheet.create({
-  thumb: {
-    width: 80,
-    height: 80,
-    marginRight: 10
+  notGoing: {
+    width: 150,
+    height: 40,
+    backgroundColor: "#4ed7c2",
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Going: {
+    width: 150,
+    height: 40,
+    backgroundColor: "#e76248",
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centeredText: {
+    color: 'white'
   },
 });
 

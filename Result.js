@@ -7,7 +7,8 @@ import {
   Image,
   TextInput,
   ListView,
-  Alert
+  Alert,
+  TouchableNativeFeedback
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
@@ -21,6 +22,7 @@ class Result extends Component {
     super(props);
 
     this.state = {
+      dataSource: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }),
       image: "",
       loaded: false
     };
@@ -39,10 +41,29 @@ class Result extends Component {
             date: responseData.date,
             going: responseData.going,
             test: responseData.test,
-            loaded: true
+            attendees: responseData.attendees,
+            loaded: true,
+            dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
           });
         })
         .done();
+  }
+
+  renderRow(rowData, sectionID, rowID) {
+    return (
+
+      <TouchableNativeFeedback>
+        <View>
+          <View style={styles.rowContainer}>
+            <Image style={styles.thumb} source={{ uri: rowData.picture }} />
+            <View style={styles.textContainer}>
+              <Text>{rowData.username}</Text>
+            </View>
+          </View>
+        </View>
+      </TouchableNativeFeedback>
+
+    )
   }
 
   componentDidMount() {
@@ -66,7 +87,7 @@ class Result extends Component {
         <View>
         <Image style={styles.image} source={{ uri: this.state.image }} />
           <Text>
-            {}
+            Title: {this.state.title}
           </Text>
           <Text>
             Date: {this.state.date}
@@ -77,24 +98,37 @@ class Result extends Component {
           <Text>
             {this.props.eventID}
           </Text>
-          <GoingButton />
+          <View style={styles.center}>
+            <GoingButton />
+          </View>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow.bind(this)}
+          />
         </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  center: {
+    justifyContent: 'center', 
+    alignItems: 'center' 
+  },
   image: {
     width: 250,
-    height: 250
+    height: 250,
   },
   thumb: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
+    borderRadius: 50,
     marginRight: 10
   },
   textContainer: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'center',
+    // alignItems: 'center',
   },
   separator: {
     height: 1,

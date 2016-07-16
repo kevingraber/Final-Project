@@ -12,6 +12,7 @@ export default class PageOne extends Component {
         <Text style={{margin: 20}} onPress={Actions.welcome}>Welcome</Text>
         <Text style={{margin: 20}} onPress={Actions.searchresults}>Search Results</Text>
         <Text style={{margin: 20}} onPress={Actions.eventpage}>Result</Text>
+        <Text style={{margin: 20}} onPress={Actions.createevent}>Create Event</Text>
       </View>
     )
   }

@@ -17,6 +17,7 @@ import LogIn from './LogIn.js'
 import LoggedIn from './LoggedIn.js'
 import SearchResults from './SearchResults.js'
 import Result from './Result'
+import CreateEvent from './CreateEvent'
 
 class FinalProject extends Component {
   render() {
@@ -30,6 +31,7 @@ class FinalProject extends Component {
           <Scene key="welcome" component={LoggedIn} title="Welcome!" />
           <Scene key="searchresults" component={SearchResults} title="Search Results!" />
           <Scene key="eventpage" component={Result} title="Event Page!" />
+          <Scene key="createevent" component={CreateEvent} title="Create Event!" />
         </Scene>
       </Router>
     )
