@@ -29,8 +29,10 @@ class SearchResults extends Component {
     };
   }
 
+  // http://10.0.3.2:3001/events
+
   fetchData() {
-    var REQUEST_URL = 'http://10.0.3.2:3001/events';
+    var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events';
     
     fetch(REQUEST_URL)
         .then((response) => response.json())
@@ -54,16 +56,34 @@ class SearchResults extends Component {
     this.fetchData();
   }
 
+  // renderRow(rowData, sectionID, rowID) {
+  //   return (
+
+  //     <TouchableNativeFeedback onPress={() => this.rowPressed(rowData.id)} style={styles.test}>
+  //       <View>
+  //         <View style={styles.rowContainer}>
+  //           <Image style={styles.thumb} source={{ uri: rowData.url }} />
+  //           <View  style={styles.textContainer}>
+  //             <Text style={styles.price}>{rowData.title}</Text>
+  //             <Text style={styles.title}>{rowData.location}</Text>
+  //           </View>
+  //         </View>
+  //         <View style={styles.separator}/>
+  //       </View>
+  //     </TouchableNativeFeedback>
+
+  //   )
+  // }
   renderRow(rowData, sectionID, rowID) {
     return (
-
-      <TouchableNativeFeedback onPress={() => this.rowPressed(rowData.id)} style={styles.test}>
+      
+      <TouchableNativeFeedback onPress={() => this.rowPressed(rowData._id)} style={styles.test}>
         <View>
           <View style={styles.rowContainer}>
-            <Image style={styles.thumb} source={{ uri: rowData.url }} />
+            <Image style={styles.thumb} source={{ uri: rowData.image }} />
             <View  style={styles.textContainer}>
-              <Text style={styles.price}>{rowData.title}</Text>
-              <Text style={styles.title}>{rowData.location}</Text>
+              <Text style={styles.price}>{rowData.name}</Text>
+              <Text style={styles.title}>{rowData.location_name}</Text>
             </View>
           </View>
           <View style={styles.separator}/>

@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 import BasicSwitch from './Switch.js'
-import DatePickerComponent from './DatePickerComponent.js'
 
 class CreateEvent extends Component {
   constructor(props) {

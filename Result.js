@@ -29,21 +29,25 @@ class Result extends Component {
   }
 
   fetchData(eventID) {
-    var REQUEST_URL = 'http://10.0.3.2:3001/events/' + eventID;
+    var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events/' + eventID;
     
     fetch(REQUEST_URL)
         .then((response) => response.json())
         .then((responseData) => {
+          console.log(responseData)
+          console.log(responseData[0])
+
           this.setState({
-            image: responseData.url,
-            title: responseData.title,
-            location: responseData.location,
-            date: responseData.date,
-            going: responseData.going,
-            test: responseData.test,
-            attendees: responseData.attendees,
+            image: responseData[0].image,
+            name: responseData[0].name,
+            location_name: responseData[0].location_name,
+            date_time: responseData[0].date_time,
+            description: responseData[0].description,
+            // going: responseData.going,
+            // test: responseData.test,
+            // attendees: responseData.attendees,
             loaded: true,
-            dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
+            // dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
           });
         })
         .done();
@@ -87,16 +91,29 @@ class Result extends Component {
         <View>
         <Image style={styles.image} source={{ uri: this.state.image }} />
           <Text>
-            Title: {this.state.title}
+            Title: {this.state.name}
           </Text>
           <Text>
-            Date: {this.state.date}
+            Date: {this.state.date_time}
           </Text>
+          <Text>
+            Description: {this.state.description}
+          </Text>
+          <Text>
+            Title: {this.state.name}
+          </Text>
+          <Text>
+            Title: {this.state.date_time}
+          </Text>
+          <Text>
+            Location: {this.state.location_name}
+          </Text>
+          
           <Text>
             More Info
           </Text>
           <Text>
-            {this.props.eventID}
+            {this.props._id}
           </Text>
           <View style={styles.center}>
             <GoingButton />

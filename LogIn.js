@@ -9,7 +9,9 @@ import {
   Dimensions,
   TouchableNativeFeedback,
   AsyncStorage,
-  Alert
+  Alert,
+  Image,
+  StatusBar
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
@@ -158,40 +160,82 @@ class LogIn extends Component {
 
   render() {
     const goToWelcome = () => Actions.welcome({username: this.state.username})
+
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Log In
-        </Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Username"
-          onChangeText={(username) => this.setState({username})}
-          value={this.state.username}
-        />
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Password"
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password}
-        />
+      <StatusBar
+        backgroundColor="#4ed7c2"
+        // barStyle="light-content"
+      />
+        <View>
+          <Image  style={{width: windowWidth*.70}} resizeMode='contain' source={require('./Images/login.png')} />
+        </View>
+        <View style={{margin: 5}}>
+          <TextInput    
+            autoCapitalize="characters"
+            style={styles.input} 
+            placeholder="USERNAME"
+            onChangeText={(username) => this.setState({username})}
+            value={this.state.username}
+          />
+        </View>
+        <View style={{margin: 5}}>
+          <TextInput 
+            style={styles.input} 
+            placeholder="PASSWORD"
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
+            secureTextEntry={true} 
+          />
+        </View>
         <TouchableNativeFeedback onPress={this.login.bind(this)}>
-          <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
-            <Text>Log In!</Text>
+          <View style={styles.button}>
+            <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>SIGN IN</Text>
           </View>
         </TouchableNativeFeedback>
-{/*        <TouchableNativeFeedback onPress={goToWelcome}>
-          <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
-            <Text>Log In!</Text>
-          </View>
-        </TouchableNativeFeedback>*/}
+
+        <Text style={{color: '#c0cac9', marginTop: 25}}>
+          Not a member? <Text onPress={() => Actions.signup()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Register here!</Text>
+        </Text>
+
+        <Text style={{color: '#c0cac9', margin: 10}}>
+          Forgot password? <Text style={{color: '#e76248', textDecorationLine: 'underline'}}>Reset it!</Text>
+        </Text>
+
       </View>
     );
   }
 
 }
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
+  logo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+  input: {
+    height: 40,
+    width: windowWidth*.70,
+    backgroundColor: '#c0cac9',
+    fontFamily: 'Roboto',
+    fontWeight: '100',
+    justifyContent: 'center',
+    textAlign: 'center',
+    opacity: .5
+  },
+  button: {
+    backgroundColor: "#4ed7c2",
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: windowWidth*.70,
+    margin: 5
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
