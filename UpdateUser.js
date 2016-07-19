@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  ScrollView,
-  Dimensions,
-  TouchableNativeFeedback,
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    ScrollView,
+    Dimensions,
+    TouchableNativeFeedback,
     AsyncStorage,
     Alert,
     Image,
@@ -16,32 +16,33 @@ import {
 import { Actions } from 'react-native-router-flux';
 
 class SignUp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: null,
-      password: null,
-        passwordConfirm: null
-    };
-  }
-  signup() {
-    fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/newuser', {
-      method: 'POST',
-      body: JSON.stringify({
-          username: this.state.username,
-          password: this.state.password
-      })
-    });
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            picture: null,
+            bio: null,
+            age: null,
+            homezip: null,
+            workzip: null
+        };
+    }
+    updateuser() {
+        fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/updateUser', {
+            method: 'POST',
+            body: JSON.stringify({
+                userID: "57813ca491bae872338de45b",
+                changes: {
+                    picture: this.state.picture,
+                    bio: this.state.bio,
+                    age: this.state.age,
+                    homezip: this.state.homezip,
+                    workzip: this.state.workzip
+                }
+            })
+        });
+    }
 
     render() {
-        var signupButton;
-
-        if (this.state.password === this.state.passwordConfirm) {
-            signupButton = <SignUpButton />;
-        } else {
-            signupButton = <SignUpPassDontMatch />;
-        }
 
         return (
             <View style={styles.container}>
@@ -49,41 +50,58 @@ class SignUp extends Component {
                     backgroundColor="#4ed7c2"
                     // barStyle="light-content"
                 />
-                <View>
-                    <Image  style={{width: windowWidth*.70}} resizeMode='contain' source={require('./Images/login.png')} />
-                </View>
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="EMAIL"
-                        onChangeText={(username) => this.setState({username})}
-                        value={this.state.username}
+                        placeholder="Picture"
+                        onChangeText={(picture) => this.setState({picture})}
+                        value={this.state.picture}
                     />
                 </View>
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="PASSWORD"
-                        onChangeText={(password) => this.setState({password})}
-                        value={this.state.password}
-                        secureTextEntry={true}
+                        placeholder="Bio"
+                        onChangeText={(bio) => this.setState({bio})}
+                        value={this.state.bio}
                     />
                 </View>
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="PASSWORD"
-                        onChangeText={(password) => this.setState({passwordConfirm})}
-                        value={this.state.passwordConfirm}
-                        secureTextEntry={true}
+                        placeholder="Age"
+                        onChangeText={(age) => this.setState({age})}
+                        value={this.state.age}
+                    />
+                </View>
+                <View style={{margin: 5}}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Home Zip"
+                        onChangeText={(homezip) => this.setState({homezip})}
+                        value={this.state.homezip}
+                    />
+                </View>
+                <View style={{margin: 5}}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Work Zip"
+                        onChangeText={(workzip) => this.setState({workzip})}
+                        value={this.state.workzip}
                     />
                 </View>
                 <TouchableNativeFeedback onPress={this.signup.bind(this)}>
-                    {signupButton}
+                    <View style={styles.button}>
+                        <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>SIGN UP</Text>
+                    </View>
                 </TouchableNativeFeedback>
 
                 <Text style={{color: '#c0cac9', marginTop: 25}}>
                     Already a member? <Text onPress={() => Actions.signup()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Login here!</Text>
+                </Text>
+
+                <Text style={{color: '#c0cac9', margin: 10}}>
+                    Forgot password? <Text style={{color: '#e76248', textDecorationLine: 'underline'}}>Reset it!</Text>
                 </Text>
 
             </View>

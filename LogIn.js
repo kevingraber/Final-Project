@@ -174,7 +174,7 @@ class LogIn extends Component {
           <TextInput    
             autoCapitalize="characters"
             style={styles.input} 
-            placeholder="USERNAME"
+            placeholder="EMAIL"
             onChangeText={(username) => this.setState({username})}
             value={this.state.username}
           />
