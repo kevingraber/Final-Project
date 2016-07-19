@@ -6,7 +6,8 @@ import {
   View,
   Image,
   TextInput,
-  Dimensions
+  Dimensions,
+  Navigator
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
@@ -29,8 +30,8 @@ class FinalProject extends Component {
           <Scene key="login" direction="vertical" component={LogIn} title="Log In!" />
           <Scene key="signup" component={SignUp} title="Sign Up!" />
           <Scene key="welcome" component={LoggedIn} title="Welcome!" />
-          <Scene key="searchresults" component={SearchResults} title="Search Results!" />
-          <Scene key="eventpage" component={Result} title="Event Page!" />
+          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="searchresults" component={SearchResults} title="Search Results!" />
+          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="eventpage" component={Result} title="Event Page!" />
           <Scene key="createevent" component={CreateEvent} title="Create Event!" />
         </Scene>
       </Router>

@@ -8,7 +8,8 @@ import {
   TextInput,
   ListView,
   Alert,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+  Dimensions
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
@@ -28,26 +29,57 @@ class Result extends Component {
     };
   }
 
-  fetchData(eventID) {
-    var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events/' + eventID;
+  // Local 
+  // http://10.0.3.2:3001/events/
+
+  // Production
+  // http://ec2-52-90-83-128.compute-1.amazonaws.com/events/
+
+  // fetchData(eventID) {
+  //   var REQUEST_URL = 'http://10.0.3.2:3001/events/' + eventID;
+    
+  //   fetch(REQUEST_URL)
+  //       .then((response) => response.json())
+  //       .then((responseData) => {
+  //         console.log(responseData)
+  //         console.log(responseData[0])
+
+  //         this.setState({
+  //           image: responseData[0].image,
+  //           name: responseData[0].name,
+  //           location_name: responseData[0].location_name,
+  //           date_time: responseData[0].date_time,
+  //           description: responseData[0].description,
+  //           // going: responseData.going,
+  //           // test: responseData.test,
+  //           // attendees: responseData.attendees,
+  //           loaded: true,
+  //           // dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
+  //         });
+  //       })
+  //       .done();
+  // }
+
+    fetchData(eventID) {
+    var REQUEST_URL = 'http://10.0.3.2:3001/events/' + eventID;
     
     fetch(REQUEST_URL)
         .then((response) => response.json())
         .then((responseData) => {
           console.log(responseData)
-          console.log(responseData[0])
+          console.log(responseData)
 
           this.setState({
-            image: responseData[0].image,
-            name: responseData[0].name,
-            location_name: responseData[0].location_name,
-            date_time: responseData[0].date_time,
-            description: responseData[0].description,
+            image: responseData.image,
+            name: responseData.name,
+            location_name: responseData.location_name,
+            date_time: responseData.date_time,
+            description: responseData.description,
             // going: responseData.going,
             // test: responseData.test,
             // attendees: responseData.attendees,
             loaded: true,
-            // dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
+            dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
           });
         })
         .done();
@@ -127,14 +159,16 @@ class Result extends Component {
   }
 }
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   center: {
     justifyContent: 'center', 
     alignItems: 'center' 
   },
   image: {
-    width: 250,
-    height: 250,
+    width: windowWidth,
+    height: 200,
   },
   thumb: {
     width: 50,
