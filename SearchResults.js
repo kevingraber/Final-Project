@@ -125,33 +125,32 @@ class SearchResults extends Component {
   // }
 
   // Facebook Style Layout
-  renderRow(rowData, sectionID, rowID) {
-    return (
-      <View>
-        <TouchableNativeFeedback onPress={() => this.rowPressed(rowData._id)} style={styles.test}>
-          <View>
-            <View style={styles.rowContainer}>
-              <Text>{rowData.date}</Text>
-            </View>
-            <View style={styles.rowContainer}>
-              <Image  style={styles.image} source={{ uri: rowData.image }} />
-            </View>
-            <View style={styles.rowContainer}>
-              <View style={styles.dateContainer}>
-
-              </View>
-              <View  style={styles.textContainer}>
-                <Text style={styles.price}>{rowData.name}</Text>
-                <Text style={styles.title}>{rowData.location_name}</Text>
-                <Text style={styles.title}>{rowData.town}</Text>
-              </View>
-            </View>
-          </View>
-        </TouchableNativeFeedback>
-        <View style={styles.separator} />
-      </View>
-    )
-  }
+  // renderRow(rowData, sectionID, rowID) {
+  //   return (
+  //     <View>
+  //       <TouchableNativeFeedback onPress={() => this.rowPressed(rowData._id)} style={styles.test}>
+  //         <View>
+  //           <View style={styles.rowContainer}>
+  //             <Image  style={styles.image} source={{ uri: rowData.image }} />
+  //           </View>
+  //           <View style={styles.rowContainer}>
+  //             <View style={styles.dateContainer}>
+  //               <View style={styles.dateNumber}>
+  //                 <Text style={{fontSize: 40, fontWeight: 'bold', color: "white"}}> {rowData.day} </Text>
+  //               </View>
+  //             </View>
+  //             <View  style={styles.textContainer}>
+  //               <Text style={styles.title}>{rowData.name}</Text>
+  //               <Text style={styles.title}>{rowData.location_name}</Text>
+  //               <Text style={styles.title}>{rowData.town}</Text>
+  //             </View>
+  //           </View>
+  //         </View>
+  //       </TouchableNativeFeedback>
+  //       <View style={styles.separator} />
+  //     </View>
+  //   )
+  // }
 
   // Text Over Picture Layout
   // renderRow(rowData, sectionID, rowID) {
@@ -175,6 +174,38 @@ class SearchResults extends Component {
   //   )
   // }
 
+  // BOTH TOGETHER MUAHAHAHAH
+  renderRow(rowData, sectionID, rowID) {
+    return (
+      <View>
+        <TouchableNativeFeedback onPress={() => this.rowPressed(rowData._id)} style={styles.test}>
+          <View>
+            <View style={styles.rowContainer}>
+              <Image  style={styles.image} source={{ uri: rowData.image }}>
+                <View style={styles.innerText}>
+                  <Text style={styles.price}>{rowData.name}</Text>
+                </View>
+              </Image>
+            </View>
+            <View style={styles.rowContainer}>
+              <View style={styles.dateContainer}>
+                <View style={styles.dateNumber}>
+                  <Text style={{fontSize: 40, fontWeight: 'bold', color: "white"}}> {rowData.day} </Text>
+                </View>
+              </View>
+              <View  style={styles.textContainer}>
+                <Text style={styles.smallText}>{rowData.time}</Text>
+                <Text style={styles.smallText}>{rowData.location_name}</Text>
+                <Text style={styles.smallText}>{rowData.town}</Text>
+              </View>
+            </View>
+          </View>
+        </TouchableNativeFeedback>
+        <View style={styles.separator} />
+      </View>
+    )
+  }
+
 
   render() {
     return (
@@ -186,6 +217,83 @@ class SearchResults extends Component {
   }
 
 }
+
+// BOTH TOGETHER MUAHAHAHA
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const styles = StyleSheet.create({
+  image: {
+    width: windowWidth,
+    height: 150,
+    marginRight: 10,
+  },
+  textContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: 5,
+    paddingLeft: 10
+  },
+  bottomBorder: {
+    height: 2,
+    backgroundColor: '#e76248'
+  },
+  separator: {
+    height: 10,
+    backgroundColor: '#dddddd'
+  },
+  innerText: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    flex: 1,
+    margin: 5
+  },
+  price: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {
+      height: 1,
+      width: 0
+    }
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+    textShadowRadius: 10,
+    textShadowColor: 'black',
+    textShadowOffset: {
+      height: 1,
+      width: 0
+    },
+  },
+  rowContainer: {
+    flexDirection: 'row',
+  },
+  dateNumber: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  dateContainer: {
+    width:75,
+    // backgroundColor: 'white',
+    backgroundColor: '#e76248',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderRightWidth: 1,
+    // borderRightColor: '#c0cac9'
+  },
+  smallText: {
+    // color: '#656565'
+    color: '#e76248',
+    // fontWeight: 'bold',
+    fontFamily: 'sans-serif',
+    fontSize: 13
+  },
+
+});
 
 // Text Over Picture Layout
 // const windowWidth = Dimensions.get('window').width;
@@ -215,7 +323,8 @@ class SearchResults extends Component {
 //   innerText: {
 //     flexDirection: 'column',
 //     justifyContent: 'flex-end',
-//     flex: 1
+//     flex: 1,
+//     margin: 5
 //   },
 //   price: {
 //     fontSize: 25,
@@ -230,6 +339,7 @@ class SearchResults extends Component {
 //   },
 //   title: {
 //     color: 'white',
+//     fontWeight: 'bold',
 //     textShadowRadius: 10,
 //     textShadowColor: 'black',
 //     textShadowOffset: {
@@ -243,71 +353,55 @@ class SearchResults extends Component {
 // });
 
 // Facebook Style Layout
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-const styles = StyleSheet.create({
-  image: {
-    width: windowWidth,
-    height: 150,
-    marginRight: 10
-  },
-  dateContainer: {
-    width:50,
-    backgroundColor: 'white',
-  },
-  textContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  bottomBorder: {
-    height: 2,
-    backgroundColor: '#e76248'
-  },
-  separator: {
-    height: 10,
-    backgroundColor: '#dddddd'
-  },
-  price: {
-    color: '#4ed7c2'
-  },
-  title: {
-    color: '#656565'
-  },
-  rowContainer: {
-    flexDirection: 'row',
-  },
-});
-
+// const windowWidth = Dimensions.get('window').width;
+// const windowHeight = Dimensions.get('window').height;
 // const styles = StyleSheet.create({
-//   thumb: {
-//     width: 80,
-//     height: 80,
+//   image: {
+//     width: windowWidth,
+//     height: 150,
 //     marginRight: 10
 //   },
+//   dateContainer: {
+//     width:75,
+//     // backgroundColor: 'white',
+//     backgroundColor: '#e76248',
+//     flexDirection: 'column',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     // borderRightWidth: 1,
+//     // borderRightColor: '#c0cac9'
+//   },
+//   dateNumber: {
+//     flexDirection: 'row',
+//     justifyContent: 'center',
+//   },
 //   textContainer: {
-//     flex: 1
+//     flex: 1,
+//     backgroundColor: 'white',
+//     padding: 5,
+//     paddingLeft: 10
+//   },
+//   bottomBorder: {
+//     height: 2,
+//     backgroundColor: '#e76248'
 //   },
 //   separator: {
-//     height: 1,
+//     height: 10,
 //     backgroundColor: '#dddddd'
 //   },
 //   price: {
-//     fontSize: 25,
-//     fontWeight: 'bold',
-//     color: '#48BBEC'
+//     color: '#4ed7c2'
 //   },
 //   title: {
-//     fontSize: 20,
-//     color: '#656565'
+//     // color: '#656565'
+//     color: '#e76248',
+//     // fontWeight: 'bold',
+//     fontFamily: 'sans-serif',
+//     fontSize: 13
 //   },
 //   rowContainer: {
 //     flexDirection: 'row',
-//     padding: 10
 //   },
-//   test: {
-//     margin: 10,
-//     backgroundColor: '#C0FF00'
-//   }
 // });
 
 export default SearchResults;

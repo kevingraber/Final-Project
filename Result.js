@@ -12,7 +12,7 @@ import {
   Dimensions
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import GoingButton from './GoingButton.js'
 
 
@@ -73,7 +73,7 @@ class Result extends Component {
             image: responseData.image,
             name: responseData.name,
             location_name: responseData.location_name,
-            date_time: responseData.date_time,
+            date_time: responseData.date,
             description: responseData.description,
             // going: responseData.going,
             // test: responseData.test,
@@ -121,29 +121,31 @@ class Result extends Component {
 
     return (
         <View>
-        <Image style={styles.image} source={{ uri: this.state.image }} />
+          <Image style={styles.image} source={{ uri: this.state.image }} />
           <Text>
             Title: {this.state.name}
           </Text>
-          <Text>
-            Date: {this.state.date_time}
-          </Text>
-          <Text>
-            Description: {this.state.description}
-          </Text>
-          <Text>
-            Title: {this.state.name}
-          </Text>
-          <Text>
-            Title: {this.state.date_time}
-          </Text>
-          <Text>
-            Location: {this.state.location_name}
-          </Text>
-          
-          <Text>
-            More Info
-          </Text>
+
+          <View style={styles.infoContainer}>
+            <MaterialIcons name="event" size={30} color="#e76248" />
+            <Text> {this.state.date_time} </Text>
+          </View>
+
+          <View style={styles.infoContainer}>
+            <MaterialIcons name="description" size={30} color="#e76248" />
+            <Text> Description: {this.state.description} </Text>
+          </View>
+
+          <View style={styles.infoContainer}>
+            <MaterialIcons name="access-time" size={30} color="#e76248" />
+            <Text> {this.state.date_time} </Text>
+          </View>
+
+          <View style={styles.infoContainer}>
+            <MaterialIcons name="place" size={30} color="#e76248" />
+            <Text> {this.state.location_name} </Text>
+          </View>
+
           <Text>
             {this.props._id}
           </Text>
@@ -165,6 +167,12 @@ const styles = StyleSheet.create({
   center: {
     justifyContent: 'center', 
     alignItems: 'center' 
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // height: 30
   },
   image: {
     width: windowWidth,
