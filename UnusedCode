@@ -81,3 +81,56 @@ render() {
             </View>
         );
     }
+
+same password check (didn't work) ...
+
+var signupButton;
+
+if (this.state.password === this.state.passwordconfirm) {
+    signupButton = <SignUpButton />;
+} else {
+    signupButton = <SignUpPassDontMatch />;
+}
+
+old login functionality that isn't used anymore ...
+ //   login() {
+  //   fetch('http://10.0.3.2:3001/sessions/create', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       username: this.state.username,
+  //       password: this.state.password,
+  //     })
+  //   })
+  //   .then((response) => response.json())
+  //   .then((responseData) => {
+  //     Alert.alert('You JWT is:', responseData.id_token)
+  //     this._onValueChange(STORAGE_KEY, responseData.id_token)
+  //     console.log(responseData)
+  //   })
+  //   .done()
+  //   // .then(Actions.welcome())
+  // }
+
+  // // login() {
+  // //   fetch('http://10.0.3.2:3001/sessions/create', {
+  // //     method: 'POST',
+  // //     headers: {
+  // //       'Accept': 'application/json',
+  // //       'Content-Type': 'application/json'
+  // //     },
+  // //     body: JSON.stringify({
+  // //       username: this.state.username,
+  // //       password: this.state.password,
+  // //     })
+  // //   })
+  // //   .then((response) => {
+  // //     console.log(response)
+  // //   })
+  // //   .then((responseData) => {
+  // //     console.log(responseData)
+  // //   })
+  // //   .done()

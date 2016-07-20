@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
     AppRegistry,
     StyleSheet,
@@ -13,9 +14,10 @@ import {
     Image,
     StatusBar
 } from 'react-native';
+
 import { Actions } from 'react-native-router-flux';
 
-class SignUp extends Component {
+class UpdateUser extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +32,7 @@ class SignUp extends Component {
         fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/updateUser', {
             method: 'POST',
             body: JSON.stringify({
-                userID: "57813ca491bae872338de45b",
+                userID: "577f1845eb8067b01fd5ea28",
                 changes: {
                     picture: this.state.picture,
                     bio: this.state.bio,
@@ -53,7 +55,7 @@ class SignUp extends Component {
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="Picture"
+                        placeholder="Picture 2"
                         onChangeText={(picture) => this.setState({picture})}
                         value={this.state.picture}
                     />
@@ -90,18 +92,14 @@ class SignUp extends Component {
                         value={this.state.workzip}
                     />
                 </View>
-                <TouchableNativeFeedback onPress={this.signup.bind(this)}>
+                <TouchableNativeFeedback onPress={this.updateuser.bind(this)}>
                     <View style={styles.button}>
-                        <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>SIGN UP</Text>
+                        <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>UPDATE USER</Text>
                     </View>
                 </TouchableNativeFeedback>
 
-                <Text style={{color: '#c0cac9', marginTop: 25}}>
-                    Already a member? <Text onPress={() => Actions.signup()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Login here!</Text>
-                </Text>
-
                 <Text style={{color: '#c0cac9', margin: 10}}>
-                    Forgot password? <Text style={{color: '#e76248', textDecorationLine: 'underline'}}>Reset it!</Text>
+                    Need to change your password? <Text style={{color: '#e76248', textDecorationLine: 'underline'}}>Reset it!</Text>
                 </Text>
 
             </View>
@@ -156,4 +154,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SignUp;
+export default UpdateUser;

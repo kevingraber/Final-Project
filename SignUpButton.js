@@ -4,6 +4,7 @@ import {
     StyleSheet,
     Text,
     View,
+    Dimensions
 } from 'react-native';
 
 class SignUpButton extends Component {

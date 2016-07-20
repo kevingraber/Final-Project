@@ -19,29 +19,28 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
+      email: null,
       password: null,
-        passwordConfirm: null
+        passwordconfirm: null
     };
   }
   signup() {
-    fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/newuser', {
+    fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/newUser', {
       method: 'POST',
       body: JSON.stringify({
-          username: this.state.username,
+          email: this.state.email,
           password: this.state.password
       })
+    })
+        .then((responseData) => {
+            //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
+            Actions.updateuser();
+        }).catch((error) => {
+        alert('Server Error Please Try Back Later');
     });
   }
 
     render() {
-        var signupButton;
-
-        if (this.state.password === this.state.passwordConfirm) {
-            signupButton = <SignUpButton />;
-        } else {
-            signupButton = <SignUpPassDontMatch />;
-        }
 
         return (
             <View style={styles.container}>
@@ -56,8 +55,8 @@ class SignUp extends Component {
                     <TextInput
                         style={styles.input}
                         placeholder="EMAIL"
-                        onChangeText={(username) => this.setState({username})}
-                        value={this.state.username}
+                        onChangeText={(email) => this.setState({email})}
+                        value={this.state.email}
                     />
                 </View>
                 <View style={{margin: 5}}>
@@ -72,18 +71,20 @@ class SignUp extends Component {
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="PASSWORD"
-                        onChangeText={(password) => this.setState({passwordConfirm})}
-                        value={this.state.passwordConfirm}
+                        placeholder="PASSWORD CONFIRM 2"
+                        onChangeText={(passwordconfirm) => this.setState({passwordconfirm})}
+                        value={this.state.passwordconfirm}
                         secureTextEntry={true}
                     />
                 </View>
                 <TouchableNativeFeedback onPress={this.signup.bind(this)}>
-                    {signupButton}
+                    <View style={styles.button}>
+                        <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>SIGN UP</Text>
+                    </View>
                 </TouchableNativeFeedback>
 
                 <Text style={{color: '#c0cac9', marginTop: 25}}>
-                    Already a member? <Text onPress={() => Actions.signup()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Login here!</Text>
+                    Already a member? <Text onPress={() => Actions.login()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Login here!</Text>
                 </Text>
 
             </View>
