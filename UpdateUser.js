@@ -29,10 +29,14 @@ class UpdateUser extends Component {
         };
     }
     updateuser() {
+
         fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/updateUser', {
             method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
             body: JSON.stringify({
-                userID: "577f1845eb8067b01fd5ea28",
+                userID: "57807b2ef43b505b2bfc1b14",
                 changes: {
                     picture: this.state.picture,
                     bio: this.state.bio,
@@ -41,6 +45,12 @@ class UpdateUser extends Component {
                     workzip: this.state.workzip
                 }
             })
+        })
+            .then((responseData) => {
+                    //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
+                    Actions.login();
+                }).catch((error) => {
+                    alert('Server Error - Please Try Back Later');
         });
     }
 
@@ -55,7 +65,7 @@ class UpdateUser extends Component {
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="Picture 2"
+                        placeholder="Picture 6"
                         onChangeText={(picture) => this.setState({picture})}
                         value={this.state.picture}
                     />

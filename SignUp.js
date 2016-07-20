@@ -27,16 +27,20 @@ class SignUp extends Component {
   signup() {
     fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/newUser', {
       method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
       body: JSON.stringify({
           email: this.state.email,
-          password: this.state.password
+          password: this.state.password,
+          username: this.state.email
       })
     })
         .then((responseData) => {
             //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
             Actions.updateuser();
         }).catch((error) => {
-        alert('Server Error Please Try Back Later');
+            alert('Server Error Please Try Back Later');
     });
   }
 
@@ -71,7 +75,7 @@ class SignUp extends Component {
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="PASSWORD CONFIRM 2"
+                        placeholder="PASSWORD CONFIRM 4"
                         onChangeText={(passwordconfirm) => this.setState({passwordconfirm})}
                         value={this.state.passwordconfirm}
                         secureTextEntry={true}
