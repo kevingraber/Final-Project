@@ -16,6 +16,7 @@ import { Router, Scene, Actions } from 'react-native-router-flux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import GoingButton from './GoingButton.js'
 import UserList from './UserList.js'
+import FavoriteButton from './FavoriteButton.js'
 
 
 class Result extends Component {
@@ -132,7 +133,7 @@ class Result extends Component {
         <ScrollView>
           <Image style={styles.image} source={{ uri: this.state.image }} />
 
-          <View style={{flexDirection: 'row', justifyContent:'center', }} >
+          <View style={{flexDirection: 'column', justifyContent:'center', alignItems:'center'}} >
             <Text style={{fontFamily: 'sans-serif-light', fontSize:25, margin: 15}} > {this.state.name} </Text>
           </View>
 
@@ -154,6 +155,7 @@ class Result extends Component {
           </Text>*/}
 
           <View style={styles.center}>
+
             <View style={styles.infoContainer}>
               <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="event" size={30} color="#e76248" />
               <Text style={{fontFamily: 'sans-serif-light'}}> {this.state.date_time} </Text>
@@ -184,8 +186,11 @@ class Result extends Component {
           <Text>
             {this.props._id}
           </Text>
+
           <View style={styles.center}>
             <GoingButton />
+            <FavoriteButton />
+            {/*<MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="favorite-border" size={30} color="#e76248" />*/}
           </View>
 
           {/*<Text> {this.state.numberGoing} people are attending </Text>*/}
