@@ -7,132 +7,140 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
+    AsyncStorage,
+    Alert,
+    Image,
+    StatusBar
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
+      email: null,
       password: null,
+        passwordconfirm: null
     };
   }
-  buttonClicked() {
-    fetch('http://10.0.3.2:8080', {
+  signup() {
+    fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/newUser', {
       method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
       body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-        email: this.state.email,
-        picture: this.state.picture,
-        bio: this.state.bio,
-        age: this.state.age,
-        homezip: this.state.homezip,
-        workzip: this.state.workzip,
+          email: this.state.email,
+          password: this.state.password,
+          username: this.state.email
       })
+    })
+        .then((responseData) => {
+            //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
+            Actions.updateuser();
+        }).catch((error) => {
+            alert('Server Error Please Try Back Later');
     });
   }
-  render() {
-    return (
-      <View style={styles.container}>
-        <ScrollView style={{width: Dimensions.get('window').width}}>
-        <Text style={styles.welcome}>
-          Create Account
-        </Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Username"
-          onChangeText={(username) => this.setState({username})}
-          value={this.state.username} 
-        />
-        <Text>{this.state.username}</Text>
-        <TextInput
-          secureTextEntry={true} 
-          style={{width: 300}} 
-          placeholder="Password"
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password} 
-        />
-        <Text>{this.state.password}</Text>
-        <TextInput
-          secureTextEntry={true} 
-          style={{width: 300}} 
-          placeholder="Confirm Password"
-          onChangeText={(confirmpassword) => this.setState({confirmpassword})}
-          value={this.state.confirmpassword} 
-        />
-        <Text>{this.state.confirmpassword}</Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Email"
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email} 
-        />
-        <Text>{this.state.email}</Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Picture"
-          onChangeText={(picture) => this.setState({picture})}
-          value={this.state.picture} 
-        />
-        <Text>{this.state.picture}</Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Bio"
-          onChangeText={(bio) => this.setState({bio})}
-          value={this.state.bio} 
-        />
-        <Text>{this.state.bio}</Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Age"
-          onChangeText={(age) => this.setState({age})}
-          value={this.state.age} 
-        />
-        <Text>{this.state.age}</Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Home Zip"
-          onChangeText={(homezip) => this.setState({homezip})}
-          value={this.state.homezip} 
-        />
-        <Text>{this.state.homezip}</Text>
-        <TextInput 
-          style={{width: 300}} 
-          placeholder="Work Zip"
-          onChangeText={(workzip) => this.setState({workzip})}
-          value={this.state.workzip} 
-        />
-        <Text>{this.state.workzip}</Text>
-        </ScrollView>
-        <TouchableNativeFeedback onPress={this.buttonClicked.bind(this)} >
-          <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
-            <Text>Submit</Text>
-          </View>
-        </TouchableNativeFeedback>
-      </View>
-    );
-  }
+
+    render() {
+
+        return (
+            <View style={styles.container}>
+                <StatusBar
+                    backgroundColor="#4ed7c2"
+                    // barStyle="light-content"
+                />
+                <View>
+                    <Image  style={{width: windowWidth*.70}} resizeMode='contain' source={require('./Images/login.png')} />
+                </View>
+                <View style={{margin: 5}}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="EMAIL"
+                        onChangeText={(email) => this.setState({email})}
+                        value={this.state.email}
+                    />
+                </View>
+                <View style={{margin: 5}}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="PASSWORD"
+                        onChangeText={(password) => this.setState({password})}
+                        value={this.state.password}
+                        secureTextEntry={true}
+                    />
+                </View>
+                <View style={{margin: 5}}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="PASSWORD CONFIRM 4"
+                        onChangeText={(passwordconfirm) => this.setState({passwordconfirm})}
+                        value={this.state.passwordconfirm}
+                        secureTextEntry={true}
+                    />
+                </View>
+                <TouchableNativeFeedback onPress={this.signup.bind(this)}>
+                    <View style={styles.button}>
+                        <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>SIGN UP</Text>
+                    </View>
+                </TouchableNativeFeedback>
+
+                <Text style={{color: '#c0cac9', marginTop: 25}}>
+                    Already a member? <Text onPress={() => Actions.login()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Login here!</Text>
+                </Text>
+
+            </View>
+        );
+    }
 }
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    logo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+    },
+    input: {
+        height: 40,
+        width: windowWidth*.70,
+        backgroundColor: '#c0cac9',
+        fontFamily: 'Roboto',
+        fontWeight: '100',
+        justifyContent: 'center',
+        textAlign: 'center',
+        opacity: .5
+    },
+    button: {
+        backgroundColor: "#4ed7c2",
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 40,
+        width: windowWidth*.70,
+        margin: 5
+    },
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#333333',
+        marginBottom: 5,
+    },
 });
 
 export default SignUp;

@@ -114,50 +114,6 @@ class LogIn extends Component {
     // .then(Actions.welcome())
   }
 
-  //   login() {
-  //   fetch('http://10.0.3.2:3001/sessions/create', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       username: this.state.username,
-  //       password: this.state.password,
-  //     })
-  //   })
-  //   .then((response) => response.json())
-  //   .then((responseData) => {
-  //     Alert.alert('You JWT is:', responseData.id_token)
-  //     this._onValueChange(STORAGE_KEY, responseData.id_token)
-  //     console.log(responseData)
-  //   })
-  //   .done()
-  //   // .then(Actions.welcome())
-  // }
-
-  // // login() {
-  // //   fetch('http://10.0.3.2:3001/sessions/create', {
-  // //     method: 'POST',
-  // //     headers: {
-  // //       'Accept': 'application/json',
-  // //       'Content-Type': 'application/json'
-  // //     },
-  // //     body: JSON.stringify({
-  // //       username: this.state.username,
-  // //       password: this.state.password,
-  // //     })
-  // //   })
-  // //   .then((response) => {
-  // //     console.log(response)
-  // //   })
-  // //   .then((responseData) => {
-  // //     console.log(responseData)
-  // //   })
-  // //   .done()
-
-  
-
   render() {
     const goToWelcome = () => Actions.welcome({username: this.state.username})
 
@@ -171,10 +127,9 @@ class LogIn extends Component {
           <Image  style={{width: windowWidth*.70}} resizeMode='contain' source={require('./Images/login.png')} />
         </View>
         <View style={{margin: 5}}>
-          <TextInput    
-            autoCapitalize="characters"
+          <TextInput
             style={styles.input} 
-            placeholder="USERNAME"
+            placeholder="EMAIL"
             onChangeText={(username) => this.setState({username})}
             value={this.state.username}
           />
