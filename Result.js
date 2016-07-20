@@ -9,10 +9,11 @@ import {
   ListView,
   Alert,
   TouchableNativeFeedback,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import GoingButton from './GoingButton.js'
 
 
@@ -73,13 +74,15 @@ class Result extends Component {
             image: responseData.image,
             name: responseData.name,
             location_name: responseData.location_name,
-            date_time: responseData.date_time,
+            date_time: responseData.date,
             description: responseData.description,
+            time: responseData.time,
             // going: responseData.going,
             // test: responseData.test,
             // attendees: responseData.attendees,
             loaded: true,
             dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
+            numberGoing: responseData.attendees.length,
           });
         })
         .done();
@@ -120,41 +123,54 @@ class Result extends Component {
     }
 
     return (
-        <View>
-        <Image style={styles.image} source={{ uri: this.state.image }} />
+        <ScrollView>
+          <Image style={styles.image} source={{ uri: this.state.image }} />
+
+          <View style={{flexDirection:'row', justifyContent:'space-around', margin: 15}}>
+            <MaterialIcons name="check-circle" size={50} color="#e76248" />
+            <MaterialIcons name="event-available" size={50} color="#e76248" />
+            <MaterialIcons name="star" size={50} color="#e76248" />
+            <MaterialIcons name="remove-circle" size={50} color="#e76248" />
+          </View>
+
           <Text>
             Title: {this.state.name}
           </Text>
-          <Text>
-            Date: {this.state.date_time}
-          </Text>
-          <Text>
-            Description: {this.state.description}
-          </Text>
-          <Text>
-            Title: {this.state.name}
-          </Text>
-          <Text>
-            Title: {this.state.date_time}
-          </Text>
-          <Text>
-            Location: {this.state.location_name}
-          </Text>
-          
-          <Text>
-            More Info
-          </Text>
+          <View style={styles.center}>
+            <View style={styles.infoContainer}>
+              <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="event" size={30} color="#e76248" />
+              <Text> {this.state.date_time} </Text>
+            </View>
+
+            <View style={styles.infoContainer}>
+              <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="access-time" size={30} color="#e76248" />
+              <Text> {this.state.time} </Text>
+            </View>
+
+            <View style={styles.infoContainer}>
+              <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="place" size={30} color="#e76248" />
+              <Text> {this.state.location_name} </Text>
+            </View>
+
+            <View style={styles.infoContainer}>
+              <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="face" size={30} color="#e76248" />
+              <Text> {this.state.numberGoing} People Going</Text>
+            </View>
+          </View>
+
           <Text>
             {this.props._id}
           </Text>
           <View style={styles.center}>
             <GoingButton />
           </View>
+          <Text> {this.state.numberGoing} people are attending </Text>
           <ListView
+            enableEmptySections={true}
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
           />
-        </View>
+        </ScrollView>
     );
   }
 }
@@ -165,6 +181,16 @@ const styles = StyleSheet.create({
   center: {
     justifyContent: 'center', 
     alignItems: 'center' 
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 50,
+    backgroundColor: 'white',
+    width: windowWidth*.8,
+    borderRadius: 10,
+    margin: 5
   },
   image: {
     width: windowWidth,
