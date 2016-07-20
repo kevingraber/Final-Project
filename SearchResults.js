@@ -194,7 +194,7 @@ class SearchResults extends Component {
                 </View>
               </View>
               <View  style={styles.textContainer}>
-                <Text style={styles.smallText}>{rowData.time}</Text>
+                <Text style={styles.smallText}>{rowData.name}</Text>
                 <Text style={styles.smallText}>{rowData.location_name}</Text>
                 <Text style={styles.smallText}>{rowData.town}</Text>
               </View>
@@ -227,15 +227,15 @@ const styles = StyleSheet.create({
     height: 150,
     marginRight: 10,
   },
-  textContainer: {
+    textContainer: {
     flex: 1,
     backgroundColor: 'white',
     padding: 5,
     paddingLeft: 10
   },
   bottomBorder: {
-    height: 2,
-    backgroundColor: '#e76248'
+    height: 1,
+    backgroundColor: 'gray'
   },
   separator: {
     height: 10,
