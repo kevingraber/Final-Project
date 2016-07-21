@@ -194,7 +194,7 @@ class SearchResults extends Component {
                 </View>
               </View>
               <View  style={styles.textContainer}>
-                <Text style={styles.smallText}>{rowData.name}</Text>
+                <Text style={styles.smallText}>{rowData.time}</Text>
                 <Text style={styles.smallText}>{rowData.location_name}</Text>
                 <Text style={styles.smallText}>{rowData.town}</Text>
               </View>

@@ -10,11 +10,13 @@ import {
   Alert,
   TouchableNativeFeedback,
   Dimensions,
-  ScrollView
+  ScrollView,
 } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Actions } from 'react-native-router-flux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import GoingButton from './GoingButton.js'
+import UserList from './UserList.js'
+import FavoriteButton from './FavoriteButton.js'
 
 
 class Result extends Component {
@@ -77,6 +79,7 @@ class Result extends Component {
             date_time: responseData.date,
             description: responseData.description,
             time: responseData.time,
+            attendees: responseData.attendees,
             // going: responseData.going,
             // test: responseData.test,
             // attendees: responseData.attendees,
@@ -112,6 +115,10 @@ class Result extends Component {
     this.fetchData(this.props.eventID);
   }
 
+  rowPressed(UserData) {
+    Actions.userlist({UserData: UserData})
+  }
+
   render() {
 
     if (!this.state.loaded) {
@@ -126,50 +133,73 @@ class Result extends Component {
         <ScrollView>
           <Image style={styles.image} source={{ uri: this.state.image }} />
 
-          <View style={{flexDirection:'row', justifyContent:'space-around', margin: 15}}>
+          <View style={{flexDirection: 'column', justifyContent:'center', alignItems:'center'}} >
+            <Text style={{fontFamily: 'sans-serif-light', fontSize:25, margin: 15}} > {this.state.name} </Text>
+          </View>
+
+          {/*<View style={{flexDirection:'row', justifyContent:'space-around', margin: 15}}>
+            <View style={{height:50, width:50, backgroundColor:"#e76248", borderRadius: 25, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+              <Text style={{color:'white', fontWeight:'bold'}}>In</Text>
+            </View>
+            <View style={{height:50, width:50, backgroundColor:"#4ed7c2", borderRadius: 25, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+              <Text style={{color:'white', fontWeight:'bold'}}>Out</Text>
+            </View>
             <MaterialIcons name="check-circle" size={50} color="#e76248" />
             <MaterialIcons name="event-available" size={50} color="#e76248" />
             <MaterialIcons name="star" size={50} color="#e76248" />
             <MaterialIcons name="remove-circle" size={50} color="#e76248" />
-          </View>
+          </View>*/}
 
-          <Text>
+          {/*<Text>
             Title: {this.state.name}
-          </Text>
+          </Text>*/}
+
           <View style={styles.center}>
+
             <View style={styles.infoContainer}>
               <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="event" size={30} color="#e76248" />
-              <Text> {this.state.date_time} </Text>
+              <Text style={{fontFamily: 'sans-serif-light'}}> {this.state.date_time} </Text>
             </View>
 
             <View style={styles.infoContainer}>
               <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="access-time" size={30} color="#e76248" />
-              <Text> {this.state.time} </Text>
+              <Text style={{fontFamily: 'sans-serif-light'}}> {this.state.time} </Text>
             </View>
 
             <View style={styles.infoContainer}>
               <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="place" size={30} color="#e76248" />
-              <Text> {this.state.location_name} </Text>
+              <Text style={{fontFamily: 'sans-serif-light'}}> {this.state.location_name} </Text>
             </View>
 
-            <View style={styles.infoContainer}>
-              <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="face" size={30} color="#e76248" />
-              <Text> {this.state.numberGoing} People Going</Text>
-            </View>
+            <TouchableNativeFeedback onPress={() => this.rowPressed(this.state.attendees)}>
+              <View style={styles.infoContainer}>
+                <MaterialIcons  style={{marginRight: 20, marginLeft: 20}} name="face" size={30} color="#e76248" />
+                <Text style={{fontFamily: 'sans-serif-light'}}> {this.state.numberGoing} People Going</Text>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="keyboard-arrow-right" size={30} color="#e76248" />
+                </View>
+              </View>
+            </TouchableNativeFeedback>
+
           </View>
 
           <Text>
             {this.props._id}
           </Text>
+
           <View style={styles.center}>
             <GoingButton />
+            <FavoriteButton />
+            {/*<MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="favorite-border" size={30} color="#e76248" />*/}
           </View>
-          <Text> {this.state.numberGoing} people are attending </Text>
-          <ListView
+
+          {/*<Text> {this.state.numberGoing} people are attending </Text>*/}
+
+          {/*<ListView
             enableEmptySections={true}
             dataSource={this.state.dataSource}
             renderRow={this.renderRow.bind(this)}
-          />
+          />*/}
         </ScrollView>
     );
   }
@@ -194,7 +224,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: windowWidth,
-    height: 200,
+    height: 175,
   },
   thumb: {
     width: 50,
