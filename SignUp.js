@@ -14,6 +14,7 @@ import {
     StatusBar
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Button from './Screens/Button';
 
 class SignUp extends Component {
   constructor(props) {
@@ -81,11 +82,14 @@ class SignUp extends Component {
                         secureTextEntry={true}
                     />
                 </View>
-                <TouchableNativeFeedback onPress={this.signup.bind(this)}>
-                    <View style={styles.button}>
-                        <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>SIGN UP</Text>
-                    </View>
-                </TouchableNativeFeedback>
+
+                <Button 
+                    onPress={this.signup.bind(this)}
+                    style={styles.button}
+                >
+                {"SIGN UP"}
+
+                </Button>
 
                 <Text style={{color: '#c0cac9', marginTop: 25}}>
                     Already a member? <Text onPress={() => Actions.login()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Login here!</Text>

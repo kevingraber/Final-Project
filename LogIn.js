@@ -14,6 +14,7 @@ import {
   StatusBar
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Button from './Screens/Button';
 
 var STORAGE_KEY = 'id_token';
 
@@ -143,11 +144,13 @@ class LogIn extends Component {
             secureTextEntry={true} 
           />
         </View>
-        <TouchableNativeFeedback onPress={this.login.bind(this)}>
-          <View style={styles.button}>
-            <Text style={{color: 'white', fontWeight: 'bold', fontFamily: 'Roboto'}}>SIGN IN</Text>
-          </View>
-        </TouchableNativeFeedback>
+        <Button 
+          onPress={this.login.bind(this)}
+          style={styles.button}
+        >
+        {"SIGN IN"}
+
+        </Button>
 
         <Text style={{color: '#c0cac9', marginTop: 25}}>
           Not a member? <Text onPress={() => Actions.signup()} style={{color: '#e76248', textDecorationLine: 'underline'}}>Register here!</Text>
@@ -184,6 +187,9 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#4ed7c2",
+    color: 'white',
+    fontWeight: 'bold',
+    fontFamily: 'Roboto',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
