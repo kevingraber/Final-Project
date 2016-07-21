@@ -21,15 +21,45 @@ import CreateEvent from './CreateEvent'
 import UpdateUser from './UpdateUser'
 import UserList from './UserList'
 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+
+class TabIcon extends React.Component {
+    render(){
+        return (
+            <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="search" size={30} color="white" />
+        );
+    }
+}
+
+class TabIcon2 extends React.Component {
+    render(){
+        return (
+            <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="add-circle" size={30} color="white" />
+        );
+    }
+}
+
+class TabIcon3 extends React.Component {
+    render(){
+        return (
+            <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="account-circle" size={30} color="white" />
+        );
+    }
+}
+
 class FinalProject extends Component {
   render() {
     return (
       <Router navigationBarStyle={styles.navBar} backButtonTextStyle={styles.backButton}>
         <Scene key="root">
           <Scene key="pageOne" component={PageOne} title="Welcome!" initial={true} />
-          <Scene key="login" direction="vertical" component={LogIn} title="Log In!" />
-          <Scene key="signup" component={SignUp} title="Sign Up!" />
-          <Scene key="welcome" component={LoggedIn} title="Welcome!" />
+
+          <Scene tabBarStyle={{backgroundColor:'black'}} key="tabbed" tabs={true}>
+            <Scene icon={TabIcon} key="login" direction="vertical" component={LogIn} title="Log In!" />
+            <Scene icon={TabIcon2} key="signup" component={SignUp} title="Sign Up!" />
+            <Scene icon={TabIcon3} key="welcome" component={LoggedIn} title="Welcome!" />
+          </Scene>
+
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="searchresults" component={SearchResults} title="Search Results!" />
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="eventpage" component={Result} title="Event Page!" />
           <Scene key="createevent" component={CreateEvent} title="Create Event!" />
