@@ -20,6 +20,8 @@ import Result from './Result'
 import CreateEvent from './CreateEvent'
 import UpdateUser from './UpdateUser'
 import UserList from './UserList'
+import Search from './Search'
+import Profile from './Profile'
 
 class FinalProject extends Component {
   render() {
@@ -32,9 +34,11 @@ class FinalProject extends Component {
           <Scene key="welcome" component={LoggedIn} title="Welcome!" />
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="searchresults" component={SearchResults} title="Search Results!" />
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="eventpage" component={Result} title="Event Page!" />
-          <Scene key="createevent" component={CreateEvent} title="Create Event!" />
+          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="createevent" component={CreateEvent} title="Create Event!" />
           <Scene key="updateuser" component={UpdateUser} title="Update User" />
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="userlist" component={UserList} title="User List" />
+          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="search" component={Search} title="Search!" />
+          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="profile" component={Profile} title="Profile!" />
         </Scene>
       </Router>
     )

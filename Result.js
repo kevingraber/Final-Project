@@ -18,6 +18,8 @@ import GoingButton from './GoingButton.js'
 import UserList from './UserList.js'
 import FavoriteButton from './FavoriteButton.js'
 
+var moment = require('moment')
+
 
 class Result extends Component {
 
@@ -39,7 +41,7 @@ class Result extends Component {
   // http://ec2-52-90-83-128.compute-1.amazonaws.com/events/
 
   // fetchData(eventID) {
-  //   var REQUEST_URL = 'http://10.0.3.2:3001/events/' + eventID;
+  //   var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events/' + eventID;
     
   //   fetch(REQUEST_URL)
   //       .then((response) => response.json())
@@ -64,28 +66,30 @@ class Result extends Component {
   // }
 
     fetchData(eventID) {
-    var REQUEST_URL = 'http://10.0.3.2:3001/events/' + eventID;
+    var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events/' + eventID;
     
     fetch(REQUEST_URL)
         .then((response) => response.json())
         .then((responseData) => {
           console.log(responseData)
-          console.log(responseData)
+          // console.log(responseData)
 
           this.setState({
-            image: responseData.image,
-            name: responseData.name,
-            location_name: responseData.location_name,
-            date_time: responseData.date,
-            description: responseData.description,
-            time: responseData.time,
-            attendees: responseData.attendees,
+            image: responseData[0].image,
+            name: responseData[0].name,
+            // location_name: responseData.location_name,
+            location_name: "Placeholder",
+            date_time: moment(responseData[0].date_time).format("MMMM Do"),
+            description: responseData[0].description,
+            // time: responseData.time,
+            time: moment(responseData[0].date_time).format("h:mm A"),
+            attendees: responseData[0].attendees,
             // going: responseData.going,
             // test: responseData.test,
             // attendees: responseData.attendees,
             loaded: true,
-            dataSource: this.state.dataSource.cloneWithRows(responseData.attendees),
-            numberGoing: responseData.attendees.length,
+            dataSource: this.state.dataSource.cloneWithRows(responseData[0].attendees),
+            numberGoing: responseData[0].attendees.length,
           });
         })
         .done();
@@ -130,7 +134,7 @@ class Result extends Component {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={{backgroundColor:'#E9E9EF'}}>
           <Image style={styles.image} source={{ uri: this.state.image }} />
 
           <View style={{flexDirection: 'column', justifyContent:'center', alignItems:'center'}} >
@@ -210,7 +214,7 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   center: {
     justifyContent: 'center', 
-    alignItems: 'center' 
+    alignItems: 'center', 
   },
   infoContainer: {
     flexDirection: 'row',

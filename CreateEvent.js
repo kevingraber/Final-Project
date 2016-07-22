@@ -9,7 +9,10 @@ import {
   Dimensions,
   TouchableNativeFeedback,
   Picker,
-  CameraRoll
+  CameraRoll,
+  DatePickerAndroid,
+  TimePickerAndroid,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import BasicSwitch from './Switch.js'
@@ -18,6 +21,12 @@ class CreateEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      presetDate: new Date(),
+      presetText: 'Pick a dateee',
+      simpleText: 'pick a time',
+      presetHour: 4,
+      presetMinute: 4,
+      timeText: 'pick a time, default: 4:04AM',
       // username: null,
       // password: null,
     };
@@ -37,13 +46,56 @@ class CreateEvent extends Component {
       })
     });
   }
+
+  async showPicker(stateKey, options) {
+    try {
+      var newState = {};
+      const {action, year, month, day} = await DatePickerAndroid.open(options);
+      if (action === DatePickerAndroid.dismissedAction) {
+        newState[stateKey + 'Text'] = 'dismissed';
+      } else {
+        var date = new Date(year, month, day);
+        newState[stateKey + 'Text'] = date.toLocaleDateString();
+        newState[stateKey + 'Date'] = date;
+      }
+      this.setState(newState);
+      console.log(newState)
+    } catch ({code, message}) {
+      console.warn(`Error in example '${stateKey}': `, message);
+    }
+  }
+
+  formatTime(hour, minute) {
+    return hour + ':' + (minute < 10 ? '0' + minute : minute);
+  }
+
+  async showTimePicker(stateKey, options) {
+    try {
+      const {action, minute, hour} = await TimePickerAndroid.open(options);
+      var newState = {};
+      if (action === TimePickerAndroid.timeSetAction) {
+        // newState[stateKey + 'Text'] = formatTime(hour, minute);
+        let amORpm = 'AM'
+        if (hour >= 12 ) { 
+          amORpm = 'PM' 
+        }
+        newState[stateKey + 'Text'] = (hour > 12 ? (hour - 12) : hour) + ':' + (minute < 10 ? '0' + minute : minute) + ' ' + amORpm;
+        newState[stateKey + 'Hour'] = hour;
+        newState[stateKey + 'Minute'] = minute;
+      } else if (action === TimePickerAndroid.dismissedAction) {
+        newState[stateKey + 'Text'] = 'dismissed';
+      }
+      this.setState(newState);
+      console.log(newState)
+    } catch ({code, message}) {
+      console.warn(`Error in example '${stateKey}': `, message);
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <ScrollView style={{width: Dimensions.get('window').width}}>
-        <Text style={styles.welcome}>
-          Create Account
-        </Text>
 
         <TextInput 
           style={{width: 300}} 
@@ -85,6 +137,30 @@ class CreateEvent extends Component {
           onChangeText={(address) => this.setState({address})}
           value={this.state.address} 
         />
+
+        <TouchableNativeFeedback onPress={this.showPicker.bind(this, 'preset', {date: new Date(), minDate: new Date()})}>
+          <View>
+            <Text>{this.state.presetText}</Text>
+          </View>
+        </TouchableNativeFeedback>
+
+        {/*<TouchableWithoutFeedback
+          onPress={this.showTimePicker.bind(this, 'simple')}>
+          <View>
+            <Text style={styles.text}>{this.state.simpleText}</Text>
+          </View>
+        </TouchableWithoutFeedback>*/}
+
+        <TouchableWithoutFeedback
+          onPress={this.showTimePicker.bind(this, 'time', {
+            hour: this.state.presetHour,
+            minute: this.state.presetMinute,
+          })}>
+          <View>
+          <Text style={styles.text}>{this.state.timeText}</Text>
+          </View>
+        </TouchableWithoutFeedback>
+
         <Text>{this.state.address}</Text>
 
         <Text>Private?</Text>
@@ -97,6 +173,8 @@ class CreateEvent extends Component {
           <Picker.Item label="Java" value="java" />
           <Picker.Item label="JavaScript" value="js" />
         </Picker>
+
+          
 
         {/*<TextInput 
           style={{width: 300}} 

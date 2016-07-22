@@ -12,8 +12,9 @@ import {
   Dimensions
 } from 'react-native';
 import { Router, Scene, Actions } from 'react-native-router-flux';
-
 import { Result } from './Result.js'
+
+var moment = require('moment')
 
 // var fakedata = require('./FakeData.js')
 
@@ -37,7 +38,7 @@ class SearchResults extends Component {
   // http://ec2-52-90-83-128.compute-1.amazonaws.com/events
 
   fetchData() {
-    var REQUEST_URL = 'http://10.0.3.2:3001/events';
+    var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events';
     
     fetch(REQUEST_URL)
         .then((response) => response.json())
@@ -190,11 +191,13 @@ class SearchResults extends Component {
             <View style={styles.rowContainer}>
               <View style={styles.dateContainer}>
                 <View style={styles.dateNumber}>
-                  <Text style={{fontSize: 40, fontWeight: 'bold', color: "white"}}> {rowData.day} </Text>
+                  <Text style={{fontSize: 40, fontWeight: 'bold', color: "white"}}> {moment(rowData.date_time).format("D")} </Text>
+                  {/*<Text style={{fontSize: 40, fontWeight: 'bold', color: "white"}}> {rowData.day} </Text>*/}
                 </View>
               </View>
               <View  style={styles.textContainer}>
-                <Text style={styles.smallText}>{rowData.time}</Text>
+                <Text style={styles.smallText}>{moment(rowData.date_time).format("h:mm A")}</Text>
+                {/*<Text style={styles.smallText}>{rowData.time}</Text>*/}
                 <Text style={styles.smallText}>{rowData.location_name}</Text>
                 <Text style={styles.smallText}>{rowData.town}</Text>
               </View>
