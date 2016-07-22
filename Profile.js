@@ -13,6 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { Router, Scene, Actions } from 'react-native-router-flux';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 var moment = require('moment')
 
@@ -23,9 +24,41 @@ class Search extends Component {
   render() {
 
     return (
-      <View>
-        <Image style={styles.image} source={{uri: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13094190_10101052751294856_94502647272426993_n.jpg?oh=4cd32dd8b088a3efd8532ec79b9e188d&oe=581B8774'}}/>
-        <Text>email</Text>
+      <View style={styles.center} >
+        <View style={styles.profilePicContainer}>
+          <Image style={styles.image} source={{uri: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13094190_10101052751294856_94502647272426993_n.jpg?oh=4cd32dd8b088a3efd8532ec79b9e188d&oe=581B8774'}}/>
+        </View>
+
+        <View style={styles.bio}>
+          {/*<MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="book" size={30} color="#e76248" />*/}
+          <Text style={{fontFamily: 'sans-serif-light', flexDirection:'column'}}> I'm a huge nerd and I love playing all kinds of games! I also love running and playing friebee golf. </Text>
+        </View>
+
+        <View style={styles.infoContainer}>
+          <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="email" size={30} color="#e76248" />
+          <Text style={{fontFamily: 'sans-serif-light'}}> KJG310@Gmail.com </Text>
+        </View>
+
+        {/*<View style={styles.infoContainer}>
+          <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="lock-outline" size={30} color="#e76248" />
+          <Text style={{fontFamily: 'sans-serif-light'}}> ********* </Text>
+        </View>*/}
+
+        <View style={styles.infoContainer}>
+          <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="cake" size={30} color="#e76248" />
+          <Text style={{fontFamily: 'sans-serif-light'}}> 28 </Text>
+        </View>
+
+        <View style={styles.infoContainer}>
+          <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="pin-drop" size={30} color="#e76248" />
+          <Text style={{fontFamily: 'sans-serif-light'}}> 07920 </Text>
+        </View>
+
+        <View style={styles.infoContainer}>
+          <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="group" size={30} color="#e76248" />
+          <Text style={{fontFamily: 'sans-serif-light'}}> 10 Friends </Text>
+        </View>
+
         <Text>password</Text>
         <Text>bio</Text>
         <Text>age</Text>
@@ -42,6 +75,31 @@ class Search extends Component {
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
+  profilePicContainer: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    marginTop: 20
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 50,
+    backgroundColor: 'white',
+    width: windowWidth*.8,
+    borderRadius: 10,
+    margin: 5
+  },
+  bio: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    // height: 50,
+    backgroundColor: 'white',
+    width: windowWidth*.8,
+    borderRadius: 10,
+    margin: 10
+  },
   input: {
     flex: 1,
     height: 40,
@@ -65,8 +123,8 @@ const styles = StyleSheet.create({
     margin: 5
   },
   image: {
-    width: windowWidth*.5,
-    height: windowWidth*.5,
+    width: windowWidth*.35,
+    height: windowWidth*.35,
     borderRadius: 150
   },
   thumb: {

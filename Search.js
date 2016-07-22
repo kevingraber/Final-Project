@@ -33,8 +33,15 @@ class Search extends Component {
   render() {
 
     return (
-      <View>
+      <View style={styles.center}>
+        <View>
+          <TextInput 
+            style={styles.input} 
+            placeholder='Zipcode' 
+          />
+        </View>
         <Picker
+          style={styles.input}
           selectedValue={this.state.category}
           onValueChange={(cat) => this.setState({category: cat})}>
           <Picker.Item label="Category" value='' />
@@ -45,8 +52,9 @@ class Search extends Component {
           <Picker.Item label="Entertainment" value="Entertainment" />
           <Picker.Item label="Sponsored" value="Sponsored" />
         </Picker>
-        <TextInput style={styles.input} placeholder='Zipcode' />
+        
         <Picker
+          style={styles.input}
           selectedValue={this.state.distance}
           onValueChange={(radius) => this.setState({distance: radius})}>
           <Picker.Item label="5" value='5' />
@@ -55,8 +63,8 @@ class Search extends Component {
           <Picker.Item label="20" value="20" />
           <Picker.Item label="25" value="25" />
         </Picker>
-        <TouchableNativeFeedback>
-          <View>
+        <TouchableNativeFeedback >
+          <View style={styles.button}>
             <Text>Search</Text>
           </View>
         </TouchableNativeFeedback>
@@ -71,16 +79,29 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   input: {
-    flex: 1,
     height: 40,
-    backgroundColor: "lightgray",
-    color: '#4ed7c2',
-    fontSize: 16,
-    padding: 5
+    width: windowWidth*.70,
+    backgroundColor: '#c0cac9',
+    margin: 10,
+    // fontFamily: 'Roboto',
+    // fontWeight: '100',
+    // justifyContent: 'center',
+    // textAlign: 'center',
+    opacity: .5
+  },
+  button: {
+    backgroundColor: "#4ed7c2",
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 40,
+    width: windowWidth*.70,
+    margin: 5
   },
   center: {
     justifyContent: 'center', 
-    alignItems: 'center', 
+    alignItems: 'center',
+    flex: 1  
   },
   infoContainer: {
     flexDirection: 'row',
