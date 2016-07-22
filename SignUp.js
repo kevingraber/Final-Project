@@ -37,8 +37,9 @@ class SignUp extends Component {
       })
     })
         .then((responseData) => {
-            //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
-            Actions.updateuser();
+            Alert.alert('my token',responseData.id_token);
+            //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token);
+            //Actions.welcome();
         }).catch((error) => {
             alert('Server Error Please Try Back Later');
     });
@@ -75,7 +76,7 @@ class SignUp extends Component {
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="PASSWORD CONFIRM 4"
+                        placeholder="PASSWORD CONFIRM 5"
                         onChangeText={(passwordconfirm) => this.setState({passwordconfirm})}
                         value={this.state.passwordconfirm}
                         secureTextEntry={true}
