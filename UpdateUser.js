@@ -28,12 +28,22 @@ class UpdateUser extends Component {
             workzip: null
         };
     }
+
+    componentWillMount() {
+        AsyncStorage.getItem('STORAGE_KEY').then((token) => {
+            this.setState({
+                user: token
+            });
+        });
+    }
+
     updateuser() {
 
         fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/updateUser', {
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Token': this.state.user
             }),
             body: JSON.stringify({
                 userID: "57807b2ef43b505b2bfc1b14",
@@ -65,7 +75,7 @@ class UpdateUser extends Component {
                 <View style={{margin: 5}}>
                     <TextInput
                         style={styles.input}
-                        placeholder="Picture 6"
+                        placeholder="Picture 7"
                         onChangeText={(picture) => this.setState({picture})}
                         value={this.state.picture}
                     />
