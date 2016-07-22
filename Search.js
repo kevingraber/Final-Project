@@ -11,6 +11,7 @@ import {
   TouchableNativeFeedback,
   Dimensions,
   ScrollView,
+  Picker
 } from 'react-native';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 
@@ -19,13 +20,46 @@ var moment = require('moment')
 
 class Search extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      zipcode: '',
+      distance: '',
+      category: ''
+    }
+  }
+
 
   render() {
 
     return (
       <View>
-        <TextInput style={styles.input} placeholder='Search' />
-        <Text>Hello World</Text>
+        <Picker
+          selectedValue={this.state.category}
+          onValueChange={(cat) => this.setState({category: cat})}>
+          <Picker.Item label="Category" value='' />
+          <Picker.Item label="Sports" value="Sports" />
+          <Picker.Item label="Gaming" value="Gaming" />
+          <Picker.Item label="Food" value="Food" />
+          <Picker.Item label="Music" value="Music" />
+          <Picker.Item label="Entertainment" value="Entertainment" />
+          <Picker.Item label="Sponsored" value="Sponsored" />
+        </Picker>
+        <TextInput style={styles.input} placeholder='Zipcode' />
+        <Picker
+          selectedValue={this.state.distance}
+          onValueChange={(radius) => this.setState({distance: radius})}>
+          <Picker.Item label="5" value='5' />
+          <Picker.Item label="10" value="10" />
+          <Picker.Item label="15" value="15" />
+          <Picker.Item label="20" value="20" />
+          <Picker.Item label="25" value="25" />
+        </Picker>
+        <TouchableNativeFeedback>
+          <View>
+            <Text>Search</Text>
+          </View>
+        </TouchableNativeFeedback>
       </View>
     )
 

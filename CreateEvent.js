@@ -24,9 +24,9 @@ class CreateEvent extends Component {
       presetDate: new Date(),
       presetText: 'Pick a dateee',
       simpleText: 'pick a time',
-      presetHour: 4,
-      presetMinute: 4,
-      timeText: 'pick a time, default: 4:04AM',
+      presetHour: 10,
+      presetMinute: 30,
+      timeText: 'Pick a time, default: 10:30 AM',
       // username: null,
       // password: null,
     };
@@ -170,7 +170,7 @@ class CreateEvent extends Component {
         <Picker
           selectedValue={this.state.language}
           onValueChange={(lang) => this.setState({language: lang})}>
-          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="Category" value="java" />
           <Picker.Item label="JavaScript" value="js" />
         </Picker>
 
