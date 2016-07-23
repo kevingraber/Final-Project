@@ -27,7 +27,7 @@ class SearchResults extends Component {
     this.state = {
       dataSource: new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }),
       refreshing: false,
-      loaded: false
+      loaded: false,
     };
   }
 
@@ -37,12 +37,26 @@ class SearchResults extends Component {
   // Production
   // http://ec2-52-90-83-128.compute-1.amazonaws.com/events
 
-  fetchData() {
-    var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events';
+  // fetchData() {
+  //   var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events';
     
-    fetch(REQUEST_URL)
+  //   fetch(REQUEST_URL)
+  fetchData(searchInfo) {
+
+    var jsonSearchInfo = JSON.stringify(searchInfo);
+
+    var REQUEST_URL = 'http://ec2-52-90-83-128.compute-1.amazonaws.com/events/search';
+
+    fetch(REQUEST_URL, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: jsonSearchInfo
+    })
         .then((response) => response.json())
         .then((responseData) => {
+          console.log('are we getting here');
           this.setState({
             dataSource: this.state.dataSource.cloneWithRows(responseData),
             // loaded: true,
@@ -59,7 +73,13 @@ class SearchResults extends Component {
   componentDidMount() {
     // this.stopPostListener = DataStore.listen(this.onListChange.bind(this));
     // Actions.loadPosts();
-    this.fetchData();
+    // this.fetchData();
+    if (!this.props.searchInfo){
+      var searchInfo = {type:'all'};
+      this.fetchData(searchInfo);
+    } else {
+      this.fetchData(this.props.searchInfo);
+    }
   }
 
   // renderRow(rowData, sectionID, rowID) {

@@ -11,6 +11,7 @@ import {
   TouchableNativeFeedback,
   Dimensions,
   ScrollView,
+  AsyncStorage
 } from 'react-native';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -22,6 +23,14 @@ var moment = require('moment')
 
 
 class Result extends Component {
+
+  componentWillMount() {
+    AsyncStorage.getItem('STORAGE_KEY').then((token) => {
+      this.setState({
+        user: token
+      });
+    });
+  }
 
   // Initialize the hardcoded data
   constructor(props) {
@@ -77,19 +86,20 @@ class Result extends Component {
           this.setState({
             image: responseData[0].image,
             name: responseData[0].name,
+            id: responseData[0]._id,
             // location_name: responseData.location_name,
-            location_name: "Placeholder",
+            location_name: responseData[0].location_name,
             date_time: moment(responseData[0].date_time).format("MMMM Do"),
             description: responseData[0].description,
             // time: responseData.time,
             time: moment(responseData[0].date_time).format("h:mm A"),
-            attendees: responseData[0].attendees,
+            attendees: responseData[0].attendees.in,
             // going: responseData.going,
             // test: responseData.test,
             // attendees: responseData.attendees,
             loaded: true,
-            dataSource: this.state.dataSource.cloneWithRows(responseData[0].attendees),
-            numberGoing: responseData[0].attendees.length,
+            dataSource: this.state.dataSource.cloneWithRows(responseData[0].attendees.in),
+            numberGoing: responseData[0].attendees.in.length,
           });
         })
         .done();
@@ -112,6 +122,32 @@ class Result extends Component {
     )
   }
 
+  nowGoing() {
+
+    console.log("you pressed me")
+
+    fetch('http://ec2-52-90-83-128.compute-1.amazonaws.com/eventIn', {
+          method: 'POST',
+          headers: new Headers({
+              'Content-Type': 'application/json',
+              'Token': this.state.user
+          }),
+          body: JSON.stringify({
+              // userID: "57807b2ef43b505b2bfc1b14",
+              eventID: this.props.eventID
+          })
+      })
+        // .then((response) => console.log(response))
+        .then((response) => response.json())
+        .then((responseData) => {
+              //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
+              Alert.alert("Have Fun!")
+          }).catch((error) => {
+              alert('Server Error - Please Try Back Later');
+      });
+
+  }
+
   componentDidMount() {
     // this.stopPostListener = DataStore.listen(this.onListChange.bind(this));
     // Actions.loadPosts();
@@ -120,6 +156,7 @@ class Result extends Component {
   }
 
   rowPressed(UserData) {
+    console.log(UserData)
     Actions.userlist({UserData: UserData})
   }
 
@@ -128,7 +165,7 @@ class Result extends Component {
     if (!this.state.loaded) {
       return (
         <View>
-          <Image style={styles.image} source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Donald_Trump_August_19,_2015_(cropped).jpg/220px-Donald_Trump_August_19,_2015_(cropped).jpg" }} />
+          <Text>Loading...</Text>
         </View>
       )
     }
@@ -138,7 +175,8 @@ class Result extends Component {
           <Image style={styles.image} source={{ uri: this.state.image }} />
 
           <View style={{flexDirection: 'column', justifyContent:'center', alignItems:'center'}} >
-            <Text style={{fontFamily: 'sans-serif-light', fontSize:25, margin: 15}} > {this.state.name} </Text>
+            <Text style={{fontFamily: 'sans-serif-light', fontSize:25, margin: 10}} > {this.state.name} </Text>
+            <Text style={{marginBottom: 10}} > {this.state.description} </Text>
           </View>
 
           {/*<View style={{flexDirection:'row', justifyContent:'space-around', margin: 15}}>
@@ -187,13 +225,18 @@ class Result extends Component {
 
           </View>
 
-          <Text>
-            {this.props._id}
-          </Text>
+          {/*<Text>
+            {this.props.eventID}
+          </Text>*/}
 
-          <View style={styles.center}>
-            <GoingButton />
-            <FavoriteButton />
+          <View  style={styles.center}>
+            <TouchableNativeFeedback  onPress={this.nowGoing.bind(this)}>
+              <View style={{height:50, width:100, borderRadius:50, margin:10, backgroundColor: '#4ed7c2', justifyContent:'center', alignItems:'center'}}>
+              <Text style={{color:'white'}}>Going?</Text>
+              </View>
+            </TouchableNativeFeedback>
+            {/*<GoingButton onPress={this.nowGoing.bind(this)} />
+            <FavoriteButton />*/}
             {/*<MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="favorite-border" size={30} color="#e76248" />*/}
           </View>
 

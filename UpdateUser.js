@@ -58,7 +58,7 @@ class UpdateUser extends Component {
         })
             .then((responseData) => {
                     //AsyncStorage.setItem('STORAGE_KEY', responseData.id_token)
-                    Actions.login();
+                    Actions.tabbed();
                 }).catch((error) => {
                     alert('Server Error - Please Try Back Later');
         });

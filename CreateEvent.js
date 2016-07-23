@@ -80,7 +80,7 @@ class CreateEvent extends Component {
                 description: this.state.description,
                 date_time: this.state.date_time,
                 tags: this.state.tags,
-                image: this.state.image,
+                image: "http://justsaynews.com/wp-content/uploads/2015/06/hiking.jpg",
                 private: this.state.private
             })
         })

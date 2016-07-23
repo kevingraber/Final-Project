@@ -11,7 +11,8 @@ import {
   TouchableNativeFeedback,
   Dimensions,
   ScrollView,
-  StatusBar
+  StatusBar,
+  AsyncStorage
 } from 'react-native';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -21,10 +22,16 @@ var moment = require('moment')
 
 class Search extends Component {
 
+  logout() {
+    AsyncStorage.removeItem('STORAGE_KEY');
+    Actions.login()
+  }
+
 
   render() {
 
     return (
+      <ScrollView>
       <View style={styles.center} >
       <StatusBar backgroundColor="#4ed7c2" />
         <View style={styles.profilePicContainer}>
@@ -61,6 +68,15 @@ class Search extends Component {
           <Text style={{fontFamily: 'sans-serif-light'}}> 10 Friends </Text>
         </View>
 
+        <View>
+          <TouchableNativeFeedback onPress={this.logout.bind(this)}>
+            <Text style={{flexDirection:'row', width:150, height:50, margin:20}} >
+              <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="power-settings-new" size={20} color="#e76248" />
+              <Text>Log Out</Text>
+            </Text>
+          </TouchableNativeFeedback>
+        </View>
+
         {/*<Text>password</Text>
         <Text>bio</Text>
         <Text>age</Text>
@@ -68,6 +84,7 @@ class Search extends Component {
         <Text>workzip</Text>
         <Text>friends</Text>*/}
       </View>
+      </ScrollView>
     )
 
   }

@@ -49,23 +49,32 @@ class TabIcon3 extends React.Component {
     }
 }
 
+class TabIcon4 extends React.Component {
+    render(){
+        return (
+            <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="near-me" size={30} color="white" />
+        );
+    }
+}
+
 class FinalProject extends Component {
   render() {
     return (
       <Router navigationBarStyle={styles.navBar} backButtonTextStyle={styles.backButton}>
         <Scene key="root">
-          <Scene key="pageOne" component={PageOne} title="Welcome!" initial={true} />
-          <Scene key="login" direction="vertical" component={LogIn} title="Log In!" />
+          <Scene key="pageOne" component={PageOne} title="Welcome!"  />
+          <Scene key="login" direction="vertical" component={LogIn} title="Log In!" initial={true} />
           <Scene key="signup" component={SignUp} title="Sign Up!" />
           <Scene key="welcome" component={LoggedIn} title="Welcome!" />
 
           <Scene tabBarStyle={{backgroundColor:'#4ed7c2'}} key="tabbed" tabs={true}>
+            <Scene icon={TabIcon4} sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight, paddingBottom: 50}} key="searchresults" component={SearchResults} title="Search Results!" />
             <Scene icon={TabIcon} sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight, paddingBottom: 50}} key="search" component={Search} title="Search!" />
             <Scene icon={TabIcon2} sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight, paddingBottom: 50}} key="createevent" component={CreateEvent} title="Create Event!" />
             <Scene icon={TabIcon3} sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight, paddingBottom: 50}} key="profile" component={Profile} title="Profile!" />
           </Scene>
 
-          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="searchresults" component={SearchResults} title="Search Results!" />
+          {/*<Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="searchresults" component={SearchResults} title="Search Results!" />*/}
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="eventpage" component={Result} title="Event Page!" />
           {/*<Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="createevent" component={CreateEvent} title="Create Event!" />*/}
           <Scene key="updateuser" component={UpdateUser} title="Update User" />

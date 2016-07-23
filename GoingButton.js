@@ -32,7 +32,7 @@ class GoingButton extends Component {
 
     if (!this.state.going) {
       return (
-        <TouchableNativeFeedback onPress={this.handleClick.bind(this)}>
+        <TouchableNativeFeedback>
           <View style={styles.notGoing}>
             <Text style={styles.centeredText}>
               Not Yet Going!
@@ -43,7 +43,7 @@ class GoingButton extends Component {
     }
 
     return (
-      <TouchableNativeFeedback onPress={this.handleClick.bind(this)}>
+      <TouchableNativeFeedback>
         <View style={styles.Going}>
           <Text style={styles.centeredText}>
             Going!
