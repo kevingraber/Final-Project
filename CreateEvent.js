@@ -90,8 +90,8 @@ class CreateEvent extends Component {
                 AsyncStorage.setItem('STORAGE_KEY', responseData.id_token);
                 Actions.welcome();
             }).catch((error) => {
-            alert('Server Error Please Try Back Later');
-        });
+                alert('Server Error Please Try Back Later');
+            });
     }
 
   render() {

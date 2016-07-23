@@ -29,6 +29,14 @@ class Search extends Component {
     }
   }
 
+  search() {
+    var searchInfoObject = {
+      type: 'searchPage',
+      zipcode: this.state.zipcode,
+      distance: this.state.distance
+    };
+    Actions.searchresults({searchInfo: searchInfoObject});
+  }
 
   render() {
 
@@ -37,37 +45,51 @@ class Search extends Component {
         <View>
           <TextInput 
             style={styles.input} 
-            placeholder='Zipcode' 
+            placeholder='Zipcode'
+            onChangeText={(zipcode) => this.setState({zipcode})}
+            value={this.state.zipcode}
           />
         </View>
-        <Picker
-          style={styles.input}
-          selectedValue={this.state.category}
-          onValueChange={(cat) => this.setState({category: cat})}>
-          <Picker.Item label="Category" value='' />
-          <Picker.Item label="Sports" value="Sports" />
-          <Picker.Item label="Gaming" value="Gaming" />
-          <Picker.Item label="Food" value="Food" />
-          <Picker.Item label="Music" value="Music" />
-          <Picker.Item label="Entertainment" value="Entertainment" />
-          <Picker.Item label="Sponsored" value="Sponsored" />
-        </Picker>
+
+        <View>
+          <TextInput
+              style={styles.input}
+              placeholder='Distance'
+              onChangeText={(distance) => this.setState({distance})}
+              value={this.state.distance}
+          />
+        </View>
+
+        {/*<Picker*/}
+          {/*style={styles.input}*/}
+          {/*selectedValue={this.state.category}*/}
+          {/*onValueChange={(cat) => this.setState({category: cat})}>*/}
+          {/*<Picker.Item label="Category" value='' />*/}
+          {/*<Picker.Item label="Sports" value="Sports" />*/}
+          {/*<Picker.Item label="Gaming" value="Gaming" />*/}
+          {/*<Picker.Item label="Food" value="Food" />*/}
+          {/*<Picker.Item label="Music" value="Music" />*/}
+          {/*<Picker.Item label="Entertainment" value="Entertainment" />*/}
+          {/*<Picker.Item label="Sponsored" value="Sponsored" />*/}
+        {/*</Picker>*/}
         
-        <Picker
-          style={styles.input}
-          selectedValue={this.state.distance}
-          onValueChange={(radius) => this.setState({distance: radius})}>
-          <Picker.Item label="5" value='5' />
-          <Picker.Item label="10" value="10" />
-          <Picker.Item label="15" value="15" />
-          <Picker.Item label="20" value="20" />
-          <Picker.Item label="25" value="25" />
-        </Picker>
-        <TouchableNativeFeedback >
+        {/*<Picker*/}
+          {/*style={styles.input}*/}
+          {/*selectedValue={this.state.distance}*/}
+          {/*onValueChange={(radius) => this.setState({distance: radius})}>*/}
+          {/*<Picker.Item label="5" value='5' />*/}
+          {/*<Picker.Item label="10" value="10" />*/}
+          {/*<Picker.Item label="15" value="15" />*/}
+          {/*<Picker.Item label="20" value="20" />*/}
+          {/*<Picker.Item label="25" value="25" />*/}
+        {/*</Picker>*/}
+
+        <TouchableNativeFeedback onPress={this.search.bind(this)}>
           <View style={styles.button}>
             <Text>Search</Text>
           </View>
         </TouchableNativeFeedback>
+
       </View>
     )
 
