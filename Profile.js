@@ -11,6 +11,7 @@ import {
   TouchableNativeFeedback,
   Dimensions,
   ScrollView,
+  StatusBar
 } from 'react-native';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -25,13 +26,14 @@ class Search extends Component {
 
     return (
       <View style={styles.center} >
+      <StatusBar backgroundColor="#4ed7c2" />
         <View style={styles.profilePicContainer}>
           <Image style={styles.image} source={{uri: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/13094190_10101052751294856_94502647272426993_n.jpg?oh=4cd32dd8b088a3efd8532ec79b9e188d&oe=581B8774'}}/>
         </View>
 
         <View style={styles.bio}>
           {/*<MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="book" size={30} color="#e76248" />*/}
-          <Text style={{fontFamily: 'sans-serif-light', flexDirection:'column'}}> I'm a huge nerd and I love playing all kinds of games! I also love running and playing friebee golf. </Text>
+          <Text style={{fontFamily: 'sans-serif-light'}}> I'm a huge nerd and I love playing all kinds of games! Let's play some Pokemon GO together!</Text>
         </View>
 
         <View style={styles.infoContainer}>
@@ -59,12 +61,12 @@ class Search extends Component {
           <Text style={{fontFamily: 'sans-serif-light'}}> 10 Friends </Text>
         </View>
 
-        <Text>password</Text>
+        {/*<Text>password</Text>
         <Text>bio</Text>
         <Text>age</Text>
         <Text>homezip</Text>
         <Text>workzip</Text>
-        <Text>friends</Text>
+        <Text>friends</Text>*/}
       </View>
     )
 
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
   profilePicContainer: {
     justifyContent: 'center', 
     alignItems: 'center', 
-    marginTop: 20
+    marginTop: 20,
   },
   infoContainer: {
     flexDirection: 'row',
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
   bio: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    // alignItems: 'center',
     // height: 50,
     backgroundColor: 'white',
     width: windowWidth*.8,

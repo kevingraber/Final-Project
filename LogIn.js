@@ -121,7 +121,6 @@ class LogIn extends Component {
       <View style={styles.container}>
       <StatusBar
         backgroundColor="#4ed7c2"
-        // barStyle="light-content"
       />
         <View>
           <Image  style={{width: windowWidth*.70}} resizeMode='contain' source={require('./Images/login.png')} />

@@ -16,6 +16,7 @@ export default class PageOne extends Component {
         <Text style={{margin: 20}} onPress={Actions.createevent}>Create Event</Text>
         <Text style={{margin: 20}} onPress={Actions.search}>Search</Text>
         <Text style={{margin: 20}} onPress={Actions.profile}>Profile</Text>
+        <Text style={{margin: 20}} onPress={Actions.tabbed}>Tabbed</Text>
       </ScrollView>
     )
   }

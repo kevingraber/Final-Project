@@ -1,0 +1,306 @@
+old create user...
+
+render() {
+        return (
+            <View style={styles.container}>
+                <ScrollView style={{width: Dimensions.get('window').width}}>
+                    <Text style={styles.welcome}>
+                        Create Account
+                    </Text>
+                    <TextInput
+                        style={{width: 300}}
+                        placeholder="Username"
+                        onChangeText={(username) => this.setState({username})}
+                        value={this.state.username}
+                    />
+                    <Text>{this.state.username}</Text>
+                    <TextInput
+                        secureTextEntry={true}
+                        style={{width: 300}}
+                        placeholder="Password"
+                        onChangeText={(password) => this.setState({password})}
+                        value={this.state.password}
+                    />
+                    <Text>{this.state.password}</Text>
+                    <TextInput
+                        secureTextEntry={true}
+                        style={{width: 300}}
+                        placeholder="Confirm Password"
+                        onChangeText={(confirmpassword) => this.setState({confirmpassword})}
+                        value={this.state.confirmpassword}
+                    />
+                    <Text>{this.state.confirmpassword}</Text>
+                    <TextInput
+                        style={{width: 300}}
+                        placeholder="Email"
+                        onChangeText={(email) => this.setState({email})}
+                        value={this.state.email}
+                    />
+                    <Text>{this.state.email}</Text>
+                    <TextInput
+                        style={{width: 300}}
+                        placeholder="Picture"
+                        onChangeText={(picture) => this.setState({picture})}
+                        value={this.state.picture}
+                    />
+                    <Text>{this.state.picture}</Text>
+                    <TextInput
+                        style={{width: 300}}
+                        placeholder="Age"
+                        onChangeText={(age) => this.setState({age})}
+                        value={this.state.age}
+                    />
+                    <Text>{this.state.bio}</Text>
+                    <TextInput
+                        style={{width: 300}}
+                        placeholder="Age"
+                        onChangeText={(age) => this.setState({age})}
+                        value={this.state.age}
+                    />
+                    <Text>{this.state.age}</Text>
+                    <TextInput
+                        style={{width: 300}}
+                        placeholder="Home Zip"
+                        onChangeText={(homezip) => this.setState({homezip})}
+                        value={this.state.homezip}
+                    />
+                    <Text>{this.state.homezip}</Text>
+                    <TextInput
+                        style={{width: 300}}
+                        placeholder="Work Zip"
+                        onChangeText={(workzip) => this.setState({workzip})}
+                        value={this.state.workzip}
+                    />
+                    <Text>{this.state.workzip}</Text>
+                </ScrollView>
+                <TouchableNativeFeedback onPress={this.buttonClicked.bind(this)} >
+                    <View style={{width: 200, height: 50, backgroundColor: 'lightblue'}}>
+                        <Text>Submit</Text>
+                    </View>
+                </TouchableNativeFeedback>
+            </View>
+        );
+    }
+
+same password check (didn't work) ...
+
+var signupButton;
+
+if (this.state.password === this.state.passwordconfirm) {
+    signupButton = <SignUpButton />;
+} else {
+    signupButton = <SignUpPassDontMatch />;
+}
+
+old login functionality that isn't used anymore ...
+ //   login() {
+  //   fetch('http://10.0.3.2:3001/sessions/create', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       username: this.state.username,
+  //       password: this.state.password,
+  //     })
+  //   })
+  //   .then((response) => response.json())
+  //   .then((responseData) => {
+  //     Alert.alert('You JWT is:', responseData.id_token)
+  //     this._onValueChange(STORAGE_KEY, responseData.id_token)
+  //     console.log(responseData)
+  //   })
+  //   .done()
+  //   // .then(Actions.welcome())
+  // }
+
+  // // login() {
+  // //   fetch('http://10.0.3.2:3001/sessions/create', {
+  // //     method: 'POST',
+  // //     headers: {
+  // //       'Accept': 'application/json',
+  // //       'Content-Type': 'application/json'
+  // //     },
+  // //     body: JSON.stringify({
+  // //       username: this.state.username,
+  // //       password: this.state.password,
+  // //     })
+  // //   })
+  // //   .then((response) => {
+  // //     console.log(response)
+  // //   })
+  // //   .then((responseData) => {
+  // //     console.log(responseData)
+  // //   })
+  // //   .done()
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  <View style={styles.container}>
+          <ScrollView style={{width: Dimensions.get('window').width}}>
+
+          <TextInput
+            style={{width: 300}}
+
+          />
+          <Text>{this.state.name}</Text>
+
+          <TextInput
+
+            style={{width: 300}}
+
+          />
+          <Text>{this.state.description}</Text>
+
+          <TextInput
+            style={{width: 300}}
+
+          />
+          <Text>{this.state.tags}</Text>
+
+          <TextInput
+            style={{width: 300}}
+
+          />
+          <Text>{this.state.location_name}</Text>
+
+          <TextInput
+            style={{width: 300}}
+
+          />
+          <Text>{this.state.zip}</Text>
+
+              {/*
+          <TouchableNativeFeedback onPress={this.showPicker.bind(this, 'preset', {date: new Date(), minDate: new Date()})}>
+            <View>
+              <Text>{this.state.presetText}</Text>
+            </View>
+          </TouchableNativeFeedback>
+
+          <TouchableWithoutFeedback
+            onPress={this.showTimePicker.bind(this, 'simple')}>
+            <View>
+              <Text style={styles.text}>{this.state.simpleText}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+
+          <TouchableWithoutFeedback
+            onPress={this.showTimePicker.bind(this, 'time', {
+              hour: this.state.presetHour,
+              minute: this.state.presetMinute,
+            })}>
+            <View>
+            <Text style={styles.text}>{this.state.timeText}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+               */}
+
+               {/*
+                       WILL BE DIFFERENT FOR IOS
+                       <Picker
+                         selectedValue={this.state.language}
+                         onValueChange={(lang) => this.setState({language: lang})}>
+                         <Picker.Item label="Category" value="java" />
+                         <Picker.Item label="JavaScript" value="js" />
+                       </Picker>
+                       */}
+
+
+                       {/*<TextInput
+                         style={{width: 300}}
+                         placeholder="Bio"
+                         onChangeText={(bio) => this.setState({bio})}
+                         value={this.state.bio}
+                       />
+                       <Text>{this.state.bio}</Text>
+
+                       <TextInput
+                         style={{width: 300}}
+                         placeholder="Age"
+                         onChangeText={(age) => this.setState({age})}
+                         value={this.state.age}
+                       />
+                       <Text>{this.state.age}</Text>
+
+                       <TextInput
+                         style={{width: 300}}
+                         placeholder="Home Zip"
+                         onChangeText={(homezip) => this.setState({homezip})}
+                         value={this.state.homezip}
+                       />
+                       <Text>{this.state.homezip}</Text>
+
+
+
+                       <TextInput
+                         style={{width: 300}}
+                         placeholder="Work Zip"
+                         onChangeText={(workzip) => this.setState({workzip})}
+                         value={this.state.workzip}
+                       />
+                       <Text>{this.state.workzip}</Text>*/}
+                       const styles = StyleSheet.create({
+                         container: {
+                           flex: 1,
+                           justifyContent: 'center',
+                           alignItems: 'center',
+                           backgroundColor: '#F5FCFF',
+                         },
+                         welcome: {
+                           fontSize: 20,
+                           textAlign: 'center',
+                           margin: 10,
+                         },
+                         instructions: {
+                           textAlign: 'center',
+                           color: '#333333',
+                           marginBottom: 5,
+                         },
+                       });
+           async showPicker(stateKey, options) {
+               try {
+                 var newState = {};
+                 const {action, year, month, day} = await DatePickerAndroid.open(options);
+                 if (action === DatePickerAndroid.dismissedAction) {
+                   newState[stateKey + 'Text'] = 'dismissed';
+                 } else {
+                   var date = new Date(year, month, day);
+                   newState[stateKey + 'Text'] = date.toLocaleDateString();
+                   newState[stateKey + 'Date'] = date;
+                 }
+                 this.setState(newState);
+                 console.log(newState)
+               } catch ({code, message}) {
+                 console.warn(`Error in example '${stateKey}': `, message);
+               }
+             }
+
+             formatTime(hour, minute) {
+               return hour + ':' + (minute < 10 ? '0' + minute : minute);
+             }
+
+             async showTimePicker(stateKey, options) {
+               try {
+                 const {action, minute, hour} = await TimePickerAndroid.open(options);
+                 var newState = {};
+                 if (action === TimePickerAndroid.timeSetAction) {
+                   // newState[stateKey + 'Text'] = formatTime(hour, minute);
+                   let amORpm = 'AM'
+                   if (hour >= 12 ) {
+                     amORpm = 'PM'
+                   }
+                   newState[stateKey + 'Text'] = (hour > 12 ? (hour - 12) : hour) + ':' + (minute < 10 ? '0' + minute : minute) + ' ' + amORpm;
+                   newState[stateKey + 'Hour'] = hour;
+                   newState[stateKey + 'Minute'] = minute;
+                 } else if (action === TimePickerAndroid.dismissedAction) {
+                   newState[stateKey + 'Text'] = 'dismissed';
+                 }
+                 this.setState(newState);
+                 console.log(newState)
+               } catch ({code, message}) {
+                 console.warn(`Error in example '${stateKey}': `, message);
+               }
+             }
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

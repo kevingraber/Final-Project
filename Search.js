@@ -11,7 +11,8 @@ import {
   TouchableNativeFeedback,
   Dimensions,
   ScrollView,
-  Picker
+  Picker,
+  StatusBar
 } from 'react-native';
 import { Router, Scene, Actions } from 'react-native-router-flux';
 
@@ -33,7 +34,9 @@ class Search extends Component {
   render() {
 
     return (
+
       <View style={styles.center}>
+        <StatusBar backgroundColor="#4ed7c2" />
         <View>
           <TextInput 
             style={styles.input} 

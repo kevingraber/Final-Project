@@ -23,6 +23,32 @@ import UserList from './UserList'
 import Search from './Search'
 import Profile from './Profile'
 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+
+class TabIcon extends React.Component {
+    render(){
+        return (
+            <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="search" size={30} color="white" />
+        );
+    }
+}
+
+class TabIcon2 extends React.Component {
+    render(){
+        return (
+            <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="add-circle" size={30} color="white" />
+        );
+    }
+}
+
+class TabIcon3 extends React.Component {
+    render(){
+        return (
+            <MaterialIcons style={{marginRight: 20, marginLeft: 20}} name="account-circle" size={30} color="white" />
+        );
+    }
+}
+
 class FinalProject extends Component {
   render() {
     return (
@@ -32,13 +58,20 @@ class FinalProject extends Component {
           <Scene key="login" direction="vertical" component={LogIn} title="Log In!" />
           <Scene key="signup" component={SignUp} title="Sign Up!" />
           <Scene key="welcome" component={LoggedIn} title="Welcome!" />
+
+          <Scene tabBarStyle={{backgroundColor:'#4ed7c2'}} key="tabbed" tabs={true}>
+            <Scene icon={TabIcon} sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight, paddingBottom: 50}} key="search" component={Search} title="Search!" />
+            <Scene icon={TabIcon2} sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight, paddingBottom: 50}} key="createevent" component={CreateEvent} title="Create Event!" />
+            <Scene icon={TabIcon3} sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight, paddingBottom: 50}} key="profile" component={Profile} title="Profile!" />
+          </Scene>
+
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="searchresults" component={SearchResults} title="Search Results!" />
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="eventpage" component={Result} title="Event Page!" />
-          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="createevent" component={CreateEvent} title="Create Event!" />
+          {/*<Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="createevent" component={CreateEvent} title="Create Event!" />*/}
           <Scene key="updateuser" component={UpdateUser} title="Update User" />
           <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="userlist" component={UserList} title="User List" />
-          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="search" component={Search} title="Search!" />
-          <Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="profile" component={Profile} title="Profile!" />
+          {/*<Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="search" component={Search} title="Search!" />*/}
+          {/*<Scene sceneStyle={{paddingTop: Navigator.NavigationBar.Styles.General.NavBarHeight}} key="profile" component={Profile} title="Profile!" />*/}
         </Scene>
       </Router>
     )
